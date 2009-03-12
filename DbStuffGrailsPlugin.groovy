@@ -2,7 +2,7 @@ import greenbill.dataloader.*
 
 class DbStuffGrailsPlugin {
     // the plugin version
-    def version = "0.2.1"
+    def version = "0.2.2"
     def grailsVersion = "1.1 > *"
 	def dependsOn = [:] 
 
@@ -11,7 +11,7 @@ class DbStuffGrailsPlugin {
 
 	    def author = "Joshua Burnett"
 	    def authorEmail = "joshua at 9ci com"
-	    def title = "Schema managment and data import/export. Generate generic schema files and import or export base/seed/test data into your database."
+	    def title = "db schema managment and data import/export. Generate generic schema files and import or export base/seed/test data into your database."
 		def description = '''\
 		Based on DdlUtils from the Apache DB Project http://db.apache.org. 
 		Keeps the schema in a generic xml file that can then be used to creates the db schema in any of the 

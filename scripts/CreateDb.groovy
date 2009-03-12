@@ -17,6 +17,8 @@ target(createDb: "Load the data from the specified directory into the database")
 	def dbc = grailsApp.classLoader.loadClass("greenbill.dbstuff.DbCreate").newInstance()
 	dbc.dataSource=getCreateDataSource() 
 	if(createdrop == "clean") {
+		def res = confirmInput("this will drop the database ${dsConfig.dataLoad.createDbName} on ${dsConfig.dataLoad.createUrl},\n you sure?")
+		if(!res) exit(0)
 		println "about to drop and recreate the database for ${dsConfig.dataLoad.createDbName}"
 		dbc.dropAndCreate(dsConfig.dataLoad.createDbName,dsConfig.dataLoad.createDbPath)
 	}else{
@@ -31,7 +33,6 @@ target(createDb: "Load the data from the specified directory into the database")
 	
 	println "creating the base seed data from files ${dsConfig.dataLoad.seedFiles}" 
 	dl.load(dsConfig.dataLoad.seedFiles,null)
-	
 	
 	println "loading the data files from files ${dsConfig.dataLoad.dataFiles}" 
 	dl.load(dsConfig.dataLoad.dataFiles,null)
