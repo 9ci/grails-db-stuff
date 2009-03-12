@@ -1,4 +1,4 @@
-<plugin name='db-stuff' version='0.2' grailsVersion='1.1 &gt; *'>
+<plugin name='db-stuff' version='0.2.1' grailsVersion='1.1 &gt; *'>
   <author>Joshua Burnett</author>
   <authorEmail>joshua at 9ci com</authorEmail>
   <title>Schema managment and data import/export. Generate generic schema files and import or export base/seed/test data into your database.</title>
@@ -13,9 +13,6 @@
 	</description>
   <documentation>http://grails.org/DbStuff+Plugin</documentation>
   <resources>
-    <resource>Config</resource>
-    <resource>DataSource</resource>
-    <resource>UrlMappings</resource>
     <resource>TestTable</resource>
     <resource>TestThis</resource>
   </resources>

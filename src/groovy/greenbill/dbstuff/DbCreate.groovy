@@ -47,7 +47,7 @@ public class DbCreate {
 	}
 	def create(dbname,path) {
 		platform = PlatformFactory.createNewPlatformInstance(dataSource)
-		platformName = platform.name.toLowerCase();
+		def platformName = platform.name.toLowerCase();
 		if (platformName.contains("mssql")){
 			createMsSql(dbname,path)
 		}else if (platformName.contains("mysql")){

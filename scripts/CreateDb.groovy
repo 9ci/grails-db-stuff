@@ -19,7 +19,7 @@ target(createDb: "Load the data from the specified directory into the database")
 	if(createdrop == "clean") {
 		println "about to drop and recreate the database for ${dsConfig.dataLoad.createDbName}"
 		dbc.dropAndCreate(dsConfig.dataLoad.createDbName,dsConfig.dataLoad.createDbPath)
-	}else if (createdrop == "create") {
+	}else{
 		println "attempting to create the database for ${dsConfig.dataLoad.createDbName}"
 		dbc.create(dsConfig.dataLoad.createDbName,dsConfig.dataLoad.createDbPath)
 	}

@@ -2,9 +2,9 @@ import greenbill.dataloader.*
 
 class DbStuffGrailsPlugin {
     // the plugin version
-    def version = "0.2"
+    def version = "0.2.1"
     def grailsVersion = "1.1 > *"
-	//def dependsOn = [hibernate:"1.1 >"] 
+	def dependsOn = [:] 
 
     // resources that are excluded from plugin packaging
     def pluginExcludes = ["grails-app/views/error.gsp"]

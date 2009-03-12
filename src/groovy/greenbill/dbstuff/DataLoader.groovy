@@ -20,11 +20,6 @@ import java.sql.SQLException
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.commons.ApplicationHolder
 
-import org.dbunit.dataset.xml.FlatXmlDataSet;
-import org.dbunit.dataset.xml.XmlDataSet;
-import org.dbunit.operation.DatabaseOperation;
-import org.dbunit.database.DatabaseDataSourceConnection
-
 import org.springframework.context.ApplicationContextAware
 import org.springframework.context.ApplicationContext
 	
