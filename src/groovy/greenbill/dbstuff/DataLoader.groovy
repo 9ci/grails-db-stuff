@@ -47,10 +47,10 @@ public class DataLoader {
 		try{
 			dataio.writeDataToDatabase(platform,sarray)	
 		}catch(e){
-			println "!!!!! error loading data from ${it.filename}."
+			println "!!!!! error loading data from ${path}."
 			e.printStackTrace() 
 		}finally{
-			sarray.each{it.close()}
+			sarray.each(){it.close() }
 		}
 /*		appCtx.getResources(path).each{
 			println "---loading data from ${it.filename}."
