@@ -45,7 +45,8 @@ public class DataLoader {
 		def platform = PlatformFactory.createNewPlatformInstance(dataSource)
 		def sarray = appCtx.getResources(path).collect{it.inputStream} as InputStream[]
 		try{
-			dataio.writeDataToDatabase(platform,sarray)	
+			dataio.dataLoadType="INSERT_NEW"
+			dataio.writeDataToDatabase(platform,sarray)	//methods insert_new,insert_update
 		}catch(e){
 			println "!!!!! error loading data from ${path}."
 			e.printStackTrace() 

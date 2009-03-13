@@ -15,3 +15,13 @@ getDataSource = {
 	def ds = new DriverManagerDataSource(driverClassName,url,username,password)
 	return ds
 }
+
+getCreateDataSource={
+
+    def username = dsConfig?.dataSource?.username ?: 'sa'
+    def password = dsConfig?.dataSource?.password ?: ''
+    def url = dsConfig?.dataLoad?.createUrl ?: 'jdbc:hsqldb:mem:testDB'
+    def driverClassName = dsConfig?.dataSource?.driverClassName ?: 'org.hsqldb.jdbcDriver'
+	def ds = new DriverManagerDataSource(driverClassName,url,username,password)
+	return ds
+}

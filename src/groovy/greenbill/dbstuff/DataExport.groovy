@@ -29,37 +29,47 @@ import org.dbunit.database.DatabaseDataSourceConnection
 
 import org.springframework.context.ApplicationContextAware
 import org.springframework.context.ApplicationContext
+import org.apache.ddlutils.io.DatabaseDataDiffIO;
+import org.apache.ddlutils.Platform;
+import org.apache.ddlutils.PlatformFactory;
+
+import org.apache.ddlutils.io.DatabaseIO;
+import org.apache.ddlutils.model.Database;
+import org.apache.ddlutils.DdlUtilsException;
 
 public class DataExport {
 	def dataSource
 
-	def export(tables,path) {
-		def db = DbUnitUtil.getConnection(dataSource)
-		def tableArray = []
-		tables = tables?:"*"
-		if(tables.size() == 1 && tables[0].equalsIgnoreCase("*")){
-			tableArray=db.createDataSet().getTableNames()
-		}else{
-			tableArray=tables
-		}
-		def sql = new Sql(dataSource)
-		tableArray.each{table->
-			def cnt = sql.firstRow("select count(*) from "+ table)[0]
-			if(cnt>0){
-				try{
-					println "*** Exporting table $table to $path"
-					QueryDataSet queryDataSet = new QueryDataSet(db)
-					queryDataSet.addTable(table)
-					writeTableFile(queryDataSet,path,table)
-				}catch(e){
-					println "!!!!! error exporting data from $table"
-					println e
-				}
-				
-			}
-		}
-		
+	def exportDiff(inputPath,outputPath){
+		def appCtx = ApplicationHolder.application.parentContext
+		def platform = PlatformFactory.createNewPlatformInstance(dataSource)
 
+		Database model = platform.readModelFromDatabase(null);
+		DatabaseDataDiffIO dataio = new DatabaseDataDiffIO();
+		def toCompare = appCtx.getResources(inputPath).collect{it.inputStream} as InputStream[]
+		try{
+			dataio.writeDiffDataToXML(platform, model, outputPath, toCompare)
+		}catch(e){
+			println "!!!!! error writing data"
+			e.printStackTrace() 
+		}finally{
+			toCompare.each(){it.close() }
+		}
+	}
+	
+	def export(tables,outPath) {
+		def db = DbUnitUtil.getConnection(dataSource)
+		String[] tableArray = tables.split(",")
+		
+		def platform = PlatformFactory.createNewPlatformInstance(dataSource)
+		def model = platform.readModelFromDatabase(null);
+		def dataio = new DatabaseDataDiffIO();
+		try{
+			dataio.writeDataToXML(platform,model, (tableArray as List), outPath)
+		}catch(e){
+			println "!!!!! error writing data"
+			e.printStackTrace() 
+		}
 	}
 	
 	def writeTableFile(dataset,path,fileName){
