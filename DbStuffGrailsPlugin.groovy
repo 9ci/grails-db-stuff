@@ -23,7 +23,7 @@ class DbStuffGrailsPlugin {
 		Works with Hsqldb,MsSql,MySql,Oracle,db2 and others that DdlUtils supports
 	'''
 	
-    // URL to the plugin's documentation
+    // URL to the plugin's documentation, I'm still trying to figure out how to create this
     def documentation = "http://grails.org/DbStuff+Plugin"
 
     def doWithSpring = {
