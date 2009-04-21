@@ -3,13 +3,15 @@ includeTargets << new File("${dbStuffPluginDir}/scripts/_ConfigDataSource.groovy
 target(createDb: "Load the data from the specified directory into the database") {
 	depends(parseArguments,packageApp,loadApp)
 	
-	def createdrop = argsMap.params? argsMap.params[0] : "create"
+	def createdrop = argsMap.params ? argsMap.params[0] : "create"
 	
 	def dbc = grailsApp.classLoader.loadClass("greenbill.dbstuff.DbCreate").newInstance()
 	dbc.dataSource=getCreateDataSource() 
 	if(createdrop == "clean") {
-		def res = confirmInput("this will drop the database ${dsConfig.dataLoad.createDbName} on ${dsConfig.dataLoad.createUrl},\n you sure?")
-		if(!res) exit(0)
+		if(isInteractive) {
+		 def res = confirmInput("this will drop the database ${dsConfig.dataLoad.createDbName} on ${dsConfig.dataLoad.createUrl},\n you sure?")
+		 if(!res) exit(0)
+		}
 		println "about to drop and recreate the database for ${dsConfig.dataLoad.createDbName}"
 		dbc.dropAndCreate(dsConfig.dataLoad.createDbName,dsConfig.dataLoad.createDbPath)
 	}else{
