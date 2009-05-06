@@ -2,12 +2,15 @@ import greenbill.dataloader.*
 
 class DbStuffGrailsPlugin {
     // the plugin version
-    def version = "0.2.5"
+    def version = "0.2.6"
     def grailsVersion = "1.1 > *"
 	def dependsOn = [:] 
 
     // resources that are excluded from plugin packaging
-    def pluginExcludes = ["grails-app/views/error.gsp"]
+    def pluginExcludes = ['grails-app/views/error.gsp',
+		'grails-app/conf/DataSource.groovy',
+		'lib/jtds-1.2.2.jar',
+		'lib/mysql-connector-java-5.1.6-bin.jar']
 
 	    def author = "Joshua Burnett"
 	    def authorEmail = "joshua at 9ci com"

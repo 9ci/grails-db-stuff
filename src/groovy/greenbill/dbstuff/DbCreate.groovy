@@ -32,12 +32,16 @@ public class DbCreate {
 	def dataSource
 	def platform
 	
-	def dropAndCreate(dbname,path) {
+	def dropAndCreate(dbname,dsConfig) {
 		 platform = PlatformFactory.createNewPlatformInstance(dataSource)
 		def platformName = platform.name.toLowerCase();
 		if (platformName.contains("mssql")){
-			dropMsSql(dbname)
-			createMsSql(dbname,path)
+			dropMsSql(dbname,
+				dsConfig.dataSource.driverClassName,dsConfig.dataLoad.createUrl,
+				dsConfig.dataSource.username,dsConfig.dataSource.password)
+			createMsSql(dbname,dsConfig.dataLoad.createDbPath,
+				dsConfig.dataSource.driverClassName,dsConfig.dataLoad.createUrl,
+				dsConfig.dataSource.username,dsConfig.dataSource.password)
 		}else if (platformName.contains("mysql")){
 			dropMySql(dbname)
 			createMySql(dbname)
@@ -45,26 +49,35 @@ public class DbCreate {
 			dropHsql(dbname) 
 		}else throw new IllegalArgumentException("Drop and Create not supported for this databse yet")
 	}
-	def create(dbname,path) {
+	def create(dbname,dsConfig) {
 		platform = PlatformFactory.createNewPlatformInstance(dataSource)
 		def platformName = platform.name.toLowerCase();
 		if (platformName.contains("mssql")){
-			createMsSql(dbname,path)
+			createMsSql(dbname,dsConfig.dataLoad.createDbPath,
+				dsConfig.dataSource.driverClassName,dsConfig.dataLoad.createUrl,
+				dsConfig.dataSource.username,dsConfig.dataSource.password)
 		}else if (platformName.contains("mysql")){
 			createMySql(dbname)
 		}else if (platformName.contains("HsqlDb")){
 		}else throw new IllegalArgumentException("Create not supported for this databse yet")
 	}
 	
-	def dropMsSql(dbname) {
-		runSql(	"""
+	def dropMsSql(dbname,driverClassName,url,username,password) {
+		def sql = """
 				if db_id(\'${dbname}\') is not null
 				BEGIN
 				Alter database ${dbname} set single_user with rollback immediate; 
 				use tempdb;
 				drop database ${dbname};
 				END
-		""")
+		"""
+		def ant = new AntBuilder()
+		ant.sql(print:true, autocommit:true, keepformat:true, delimitertype:"row",keepformat:"true",
+			driver:"${driverClassName}",
+			url:"${url}", userid:"${username}", password:"${password }")
+		{
+				transaction(sql)
+		}
 	}
 	
 	def dropMySql(dbname) {
@@ -79,17 +92,25 @@ public class DbCreate {
 		}
 	}
 
-	def createMsSql(dbname,path) {
-		runSql(	"""
-			if db_id(\'${dbname}\') is not null
+	def createMsSql(dbname,path,driverClassName,url,username,password) {
+		def sql="""
+			if db_id(\'${dbname}\') is null
 			BEGIN
+			use tempdb;
 			create database ${dbname} ON PRIMARY(
-				NAME=\"${datasource.dbname}\",
+				NAME=\"${dbname}\",
 				FILENAME=\"${path}\\${dbname}.mdf\"
 			);
 			alter database ${dbname} set recovery simple, auto_shrink on;
 			END
-			""")
+			"""
+		def ant = new AntBuilder()
+		ant.sql(print:true, keepformat:true, delimitertype:"row",keepformat:"true",
+				driver:"${driverClassName}",
+				url:"${url}", userid:"${username}", password:"${password }")
+		{
+			transaction(sql)
+		}
 		
 	}
 	def createMySql(dbname) {

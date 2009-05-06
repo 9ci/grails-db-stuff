@@ -13,10 +13,10 @@ target(createDb: "Load the data from the specified directory into the database")
 		 if(!res) exit(0)
 		}
 		println "about to drop and recreate the database for ${dsConfig.dataLoad.createDbName}"
-		dbc.dropAndCreate(dsConfig.dataLoad.createDbName,dsConfig.dataLoad.createDbPath)
+		dbc.dropAndCreate(dsConfig.dataLoad.createDbName,dsConfig)
 	}else{
 		println "attempting to create the database for ${dsConfig.dataLoad.createDbName}"
-		dbc.create(dsConfig.dataLoad.createDbName,dsConfig.dataLoad.createDbPath)
+		dbc.create(dsConfig.dataLoad.createDbName,dsConfig)
 	}
 	//load the schema
 	def dl = grailsApp.classLoader.loadClass("greenbill.dbstuff.DataLoader").newInstance()
