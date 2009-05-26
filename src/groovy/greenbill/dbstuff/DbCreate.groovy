@@ -72,7 +72,7 @@ public class DbCreate {
 				END
 		"""
 		def ant = new AntBuilder()
-		ant.sql(print:true, autocommit:true, keepformat:true, delimitertype:"row",keepformat:"true",
+		ant.sql(print:true, autocommit:true, keepformat:true, delimitertype:"row",
 			driver:"${driverClassName}",
 			url:"${url}", userid:"${username}", password:"${password }")
 		{
@@ -105,7 +105,7 @@ public class DbCreate {
 			END
 			"""
 		def ant = new AntBuilder()
-		ant.sql(print:true, keepformat:true, delimitertype:"row",keepformat:"true",
+		ant.sql(print:true, keepformat:true, delimitertype:"row",
 				driver:"${driverClassName}",
 				url:"${url}", userid:"${username}", password:"${password }")
 		{
