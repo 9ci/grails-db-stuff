@@ -69,22 +69,22 @@ public class DataLoader {
 
 		def platform = PlatformFactory.createNewPlatformInstance(dataSource)
 		DatabaseIO dreader = new DatabaseIO()
-		
-        Database   model  = null
+
+		Database   model  = null
 
 		appCtx.getResources(path).each{
 			Database curModel = readSchemaFile(dreader, it.file);
 
-            if(!model){
+			if(!model){
 				model = curModel
 			}else if (curModel){
-                try{
-                    model.mergeWith(curModel);
-                }
-                catch (ex) {
-                    throw new DdlUtilsException("Could not merge with schema from file ${it.file}: "+ex.getLocalizedMessage(), ex);
-                }
-            }
+				try{
+					model.mergeWith(curModel);
+				}
+				catch (ex) {
+					throw new DdlUtilsException("Could not merge with schema from file ${it.file}: "+ex.getLocalizedMessage(), ex);
+				}
+			}
 		}//end file loop
 		if(model){
 			if (alterDb){

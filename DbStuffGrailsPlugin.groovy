@@ -2,20 +2,20 @@ import greenbill.dataloader.*
 
 class DbStuffGrailsPlugin {
     // the plugin version
-    def version = "0.2.7"
+    def version = "0.2.8"
     def grailsVersion = "1.1 > *"
-	def dependsOn = [:] 
+	 def dependsOn = [:] 
 
     // resources that are excluded from plugin packaging
     def pluginExcludes = ['grails-app/views/error.gsp',
-		'grails-app/conf/DataSource.groovy',
+		'grails-app/conf/DataSource.groovy','db/*',
 		'lib/jtds-1.2.2.jar',
 		'lib/mysql-connector-java-5.1.6-bin.jar']
 
-	    def author = "Joshua Burnett"
-	    def authorEmail = "joshua at 9ci com"
-	    def title = "db schema managment and data import/export. Generate generic schema files and import or export base/seed/test data into your database."
-		def description = '''\
+	  def author = "Joshua Burnett"
+	  def authorEmail = "joshua at 9ci com"
+	  def title = "db schema managment and data import/export. Generate generic schema files and import or export base/seed/test data into your database."
+	  def description = '''\
 		Based on DdlUtils from the Apache DB Project http://db.apache.org. 
 		Keeps the schema in a generic xml file that can then be used to creates the db schema in any of the 
 		supported databases. Data can also be extrernalized in files and then loaded via a grails script or at application startup.

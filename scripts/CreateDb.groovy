@@ -30,13 +30,18 @@ target(createDb: "Load the data from the specified directory into the database")
 	println "loading the data files from files ${dsConfig.dataLoad.dataFiles}" 
 	dl.load(dsConfig.dataLoad.dataFiles,null)
 	
+	println "loading another set of data files from files ${dsConfig.dataLoad.dataFilesExtra}"
+	if(dsConfig.dataLoad.dataFilesExtra){ 
+		dl.load(dsConfig.dataLoad.dataFilesExtra,null)
+	}
+	
 	println "running the scripts in ${dsConfig.dataLoad.sqlFiles}" 
 	grailsApp.parentContext.getResources(dsConfig.dataLoad.sqlFiles).each{
-		ant.sql(src:"${it.file.absolutePath}",
-			print:true, autocommit:true, keepformat:true, delimitertype:"row",
+		
+		ant.sql(src:"${it.file.absolutePath}",showheaders:"false",showtrailers:"false",
+			print:"false", autocommit:true, keepformat:true, delimitertype:"row",
 			driver:"${dsConfig.dataSource.driverClassName}",
-			url:"${dsConfig.dataSource.url}", userid:"${dsConfig.dataSource.username}", password:"${dsConfig?.dataSource?.password }"){
-		}
+			url:"${dsConfig.dataSource.url}", userid:"${dsConfig.dataSource.username}", password:"${dsConfig?.dataSource?.password }"){}
 		
 	}
 
