@@ -34,7 +34,7 @@ environments {
 		dataSource {
 			url = "jdbc:mysql://127.0.0.1/dbstufftest"
 			username =	"root"
-			password = "999plazadrive"
+			password = "xx"
 		}
 	}
 
