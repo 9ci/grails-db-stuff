@@ -1,6 +1,6 @@
 import groovy.sql.Sql
 import java.sql.SQLException
-import org.springframework.jdbc.datasource.DriverManagerDataSource
+import org.springframework.jdbc.datasource.SingleConnectionDataSource
 
 includeTargets << grailsScript("Bootstrap")
 
@@ -12,7 +12,7 @@ getDataSource = {
     def password = dsConfig?.dataSource?.password ?: ''
     def url = dsConfig?.dataSource?.url ?: 'jdbc:hsqldb:mem:testDB'
     def driverClassName = dsConfig?.dataSource?.driverClassName ?: 'org.hsqldb.jdbcDriver'
-	def ds = new DriverManagerDataSource(driverClassName,url,username,password)
+	def ds = new SingleConnectionDataSource(driverClassName,url,username,password,true)
 	return ds
 }
 
@@ -22,6 +22,6 @@ getCreateDataSource={
     def password = dsConfig?.dataSource?.password ?: ''
     def url = dsConfig?.dataLoad?.createUrl ?: 'jdbc:hsqldb:mem:testDB'
     def driverClassName = dsConfig?.dataSource?.driverClassName ?: 'org.hsqldb.jdbcDriver'
-	def ds = new DriverManagerDataSource(driverClassName,url,username,password)
+	def ds = new SingleConnectionDataSource(driverClassName,url,username,password,true)
 	return ds
 }

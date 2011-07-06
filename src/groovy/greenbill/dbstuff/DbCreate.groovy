@@ -39,6 +39,7 @@ public class DbCreate {
 			dropMsSql(dbname,
 				dsConfig.dataSource.driverClassName,dsConfig.dataLoad.createUrl,
 				dsConfig.dataSource.username,dsConfig.dataSource.password)
+				
 			createMsSql(dbname,dsConfig.dataLoad.createDbPath,
 				dsConfig.dataSource.driverClassName,dsConfig.dataLoad.createUrl,
 				dsConfig.dataSource.username,dsConfig.dataSource.password)
@@ -63,6 +64,7 @@ public class DbCreate {
 	}
 	
 	def dropMsSql(dbname,driverClassName,url,username,password) {
+		//println "about to drop db in DbCreate"
 		def sql = """
 				if db_id(\'${dbname}\') is not null
 				BEGIN
@@ -71,13 +73,8 @@ public class DbCreate {
 				drop database ${dbname};
 				END
 		"""
-		def ant = new AntBuilder()
-		ant.sql(print:true, autocommit:true, keepformat:true, delimitertype:"row",
-			driver:"${driverClassName}",
-			url:"${url}", userid:"${username}", password:"${password }")
-		{
-				transaction(sql)
-		}
+		//println sql
+		fireMsSql(dbname,driverClassName,url,username,password,sql)
 	}
 	
 	def dropMySql(dbname) {
@@ -93,6 +90,7 @@ public class DbCreate {
 	}
 
 	def createMsSql(dbname,path,driverClassName,url,username,password) {
+		//println "about to create db in DbCreate"
 		def sql="""
 			if db_id(\'${dbname}\') is null
 			BEGIN
@@ -104,14 +102,8 @@ public class DbCreate {
 			alter database ${dbname} set recovery simple, auto_shrink on;
 			END
 			"""
-		def ant = new AntBuilder()
-		ant.sql(print:true, keepformat:true, delimitertype:"row",
-				driver:"${driverClassName}",
-				url:"${url}", userid:"${username}", password:"${password }")
-		{
-			transaction(sql)
-		}
-		
+		//println sql
+		fireMsSql(dbname,driverClassName,url,username,password,sql)
 	}
 	def createMySql(dbname) {
 		runSql("create database IF NOT EXISTS ${dbname};")
@@ -126,5 +118,14 @@ public class DbCreate {
 		//} catch(Exception e){
 		//	e.printStackTrace()
 		//}
+	}
+	
+	def fireMsSql(dbname,driverClassName,url,username,password,sql) {
+		def ant = new AntBuilder()
+		ant.sql(print:true,onerror:"continue", autocommit:true, keepformat:true, delimitertype:"row",
+			driver:"${driverClassName}",
+			url:"${url}", userid:"${username}", password:"${password }", output:"println"){
+				transaction(sql)
+		}
 	}
 }
