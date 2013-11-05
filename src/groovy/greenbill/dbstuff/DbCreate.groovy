@@ -111,6 +111,7 @@ public class DbCreate {
 	}
 	def runSql(sql) {
 		//try {
+            platform = PlatformFactory.createNewPlatformInstance(dataSource)
 			println sql
 			platform.evaluateBatch(sql,false)
 			//def db = new Sql(dataSource)
