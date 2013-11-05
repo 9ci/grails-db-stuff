@@ -20,25 +20,43 @@ class DbCreateTests extends GrailsUnitTestCase {
         super.tearDown()
     }
 
+//    void testDrop() {
+//		assertEquals("MsSql",CH.config.dataLoad.platform)
+//		dbc.dropMsSql(CH.config.dataLoad.createDbName,
+//			CH.config.dataSourceMsSqlTests.driverClassName,CH.config.dataLoad.createUrl,
+//			CH.config.dataSourceMsSqlTests.username,CH.config.dataSourceMsSqlTests.password)
+//    }
+//
+//	void testCreate() {
+//		assertEquals("MsSql",CH.config.dataLoad.platform)
+//		dbc.createMsSql(CH.config.dataLoad.createDbName,CH.config.dataLoad.createDbPath,
+//			CH.config.dataSourceMsSqlTests.driverClassName,CH.config.dataLoad.createUrl,
+//			CH.config.dataSourceMsSqlTests.username,CH.config.dataSourceMsSqlTests.password)
+//    }
+//
+//	def setupCreateDataSource(){
+//		def username = "sa"
+//	    def password = "999plazadrive"
+//	    def url = CH.config.dataLoad.createUrl
+//	    def driverClassName = "net.sourceforge.jtds.jdbc.Driver"
+//		return new DriverManagerDataSource(driverClassName,url,username,password)
+//	}
+
     void testDrop() {
-		assertEquals("MsSql",CH.config.dataLoad.platform)
-		dbc.dropMsSql(CH.config.dataLoad.createDbName,
-			CH.config.dataSourceMsSqlTests.driverClassName,CH.config.dataLoad.createUrl,
-			CH.config.dataSourceMsSqlTests.username,CH.config.dataSourceMsSqlTests.password)
+        assertEquals("MySQL",CH.config.dataLoad.platform)
+        dbc.dropMySql(CH.config.dataLoad.createDbName)
     }
 
-	void testCreate() {
-		assertEquals("MsSql",CH.config.dataLoad.platform)
-		dbc.createMsSql(CH.config.dataLoad.createDbName,CH.config.dataLoad.createDbPath,
-			CH.config.dataSourceMsSqlTests.driverClassName,CH.config.dataLoad.createUrl,
-			CH.config.dataSourceMsSqlTests.username,CH.config.dataSourceMsSqlTests.password) 
+    void testCreate() {
+        assertEquals("MySQL",CH.config.dataLoad.platform)
+        dbc.createMySql(CH.config.dataLoad.createDbName)
     }
 
-	def setupCreateDataSource(){
-		def username = "sa" 
-	    def password = "999plazadrive"
-	    def url = CH.config.dataLoad.createUrl 
-	    def driverClassName = "net.sourceforge.jtds.jdbc.Driver"
-		return new DriverManagerDataSource(driverClassName,url,username,password)
-	}
+    def setupCreateDataSource(){
+        def username = "root"
+        def password = "xxx"
+        def url = CH.config.dataLoad.createUrl
+        def driverClassName = "com.mysql.jdbc.Driver"
+        return new DriverManagerDataSource(driverClassName,url,username,password)
+    }
 }

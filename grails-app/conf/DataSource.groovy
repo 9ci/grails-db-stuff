@@ -7,12 +7,13 @@ hibernate {
 }
 
 dataLoad{
-	createDbPath = "F:\\MSSQL\\Data" //for dbs like MsSql this is the directory the database witll create the db files in
+	createDbPath = "F:\\MSSQL\\Data" //for dbs like MsSql this is the directory the database will create the db files in
 	schemaFiles = "file:db/schema/*.xml" //the tables/indexes and foreign keys ddl
 	sqlFiles = "file:db/sqlscripts/mysql/*.sql" //this goes to ant so it just needs a directory
 	seedFiles = "file:db/data/base/*.xml" //the base data the should go into the core database after the schema
 	loadType = "drop-create" //create,drop-create, insert, insert-fresh
 	platform="MySQL" //MySQL,MsSql platform will be autodetected if it can be but its better to specify it if you can. see http://db.apache.org/ddlutils/ for list
+    createUrl = "jdbc:mysql://127.0.0.1/" //the base url to use to try and create the dabase
 }
 
 dataSource {
@@ -20,6 +21,8 @@ dataSource {
 	driverClassName = "com.mysql.jdbc.Driver"
 	//driverClassName = "com.p6spy.engine.spy.P6SpyDriver"
 	dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+    username =	"root"
+    password = "xx"
 }
 
 environments {
