@@ -42,7 +42,7 @@ public class DataExport {
 
 	def exportDiff(inputPath,outputPath){
 		def appCtx = ApplicationHolder.application.parentContext
-		def platform = PlatformFactory.createNewPlatformInstance(dataSource)
+        def platform = PlatformFactory.createNewPlatformInstance(dataSource)
 
 		Database model = platform.readModelFromDatabase(null);
 		DatabaseDataDiffIO dataio = new DatabaseDataDiffIO();
@@ -58,12 +58,12 @@ public class DataExport {
 	}
 	
 	def export(tables,outPath) {
-		def db = DbUnitUtil.getConnection(dataSource)
+		//def db = DbUnitUtil.getConnection(dataSource)
 		String[] tableArray = tables.split(",")
-		
-		def platform = PlatformFactory.createNewPlatformInstance(dataSource)
-		def model = platform.readModelFromDatabase(null);
-		def dataio = new DatabaseDataDiffIO();
+
+        def platform = PlatformFactory.createNewPlatformInstance(dataSource)
+        Database model = platform.readModelFromDatabase(null);
+        DatabaseDataDiffIO dataio = new DatabaseDataDiffIO();
 		try{
 			dataio.writeDataToXML(platform,model, (tableArray as List), outPath)
 		}catch(e){
