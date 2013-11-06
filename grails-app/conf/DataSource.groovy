@@ -22,7 +22,7 @@ dataSource {
 	//driverClassName = "com.p6spy.engine.spy.P6SpyDriver"
 	dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
     username =	"root"
-    password = "xx"
+    password = "xxx"
 }
 
 environments {
@@ -37,7 +37,7 @@ environments {
 		dataSource {
 			url = "jdbc:mysql://127.0.0.1/dbstufftest"
 			username =	"root"
-			password = "xx"
+			password = "xxx"
 		}
 	}
 
