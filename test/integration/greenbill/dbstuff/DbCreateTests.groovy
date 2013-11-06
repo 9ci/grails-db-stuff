@@ -62,36 +62,32 @@ class DbCreateTests extends GrailsUnitTestCase {
 
 	void testCreateMsSql() {
         dbc.dataSource=setupCreateDataSourceMsSql()
-        assertEquals("MsSql",CH.config.dataLoad.platform)
+        assertEquals("MsSql",CH.config.dataLoadMsSql.platform)
 		dbc.createMsSql(CH.config.dataLoadMsSql.createDbName,CH.config.dataLoadMsSql.createDbPath,
 			CH.config.dataSourceMsSql.driverClassName,CH.config.dataLoadMsSql.createUrl,
 			CH.config.dataSourceMsSql.username,CH.config.dataSourceMsSql.password)
     }
 
-    // Oracle
-
-    def setupCreateDataSourceOracle(){
-        def username = "system"
-        def password = "oracle"
-        def url = CH.config.dataLoadOracle.createUrl
-        def driverClassName = "net.sourceforge.jtds.jdbc.Driver"
-        return new DriverManagerDataSource(driverClassName,url,username,password)
-    }
-
-    void testDropMsSqlOracle() {
-        dbc.dataSource=setupCreateDataSourceOracle()
-        assertEquals("Oracle",CH.config.dataLoadOracle.platform)
-        dbc.dropMsSql(CH.config.dataLoadOracle.createDbName,
-                CH.config.dataSourceMsSqlTests.driverClassName,CH.config.dataLoadOracle.createUrl,
-                CH.config.dataSourceMsSqlTests.username,CH.config.dataSourceMsSqlTests.password)
-    }
-
-    void testCreateMsSqlOracle() {
-        dbc.dataSource=setupCreateDataSourceOracle()
-        assertEquals("Oracle",CH.config.dataLoadOracle.platform)
-        dbc.createMsSql(CH.config.dataLoadOracle.createDbName,CH.config.dataLoadOracle.createDbPath,
-                CH.config.dataSourceOracle.driverClassName,CH.config.dataLoadOracle.createUrl,
-                CH.config.dataSourceOracle.username,CH.config.dataSourceOracle.password)
-    }
+//    // Oracle
+//
+//    def setupCreateDataSourceOracle(){
+//        def username = "system"
+//        def password = "oracle"
+//        def url = CH.config.dataLoadOracle.createUrl
+//        def driverClassName = "net.sourceforge.jtds.jdbc.Driver"
+//        return new DriverManagerDataSource(driverClassName,url,username,password)
+//    }
+//
+//    void testDropMsSqlOracle() {
+//        dbc.dataSource=setupCreateDataSourceOracle()
+//        assertEquals("Oracle",CH.config.dataLoadOracle.platform)
+//        dbc.dropOracle(CH.config.dataLoadOracle.createDbName)
+//    }
+//
+//    void testCreateMsSqlOracle() {
+//        dbc.dataSource=setupCreateDataSourceOracle()
+//        assertEquals("Oracle",CH.config.dataLoadOracle.platform)
+//        dbc.createOracle(CH.config.dataLoadOracle.createDbName)
+//    }
 
 }
