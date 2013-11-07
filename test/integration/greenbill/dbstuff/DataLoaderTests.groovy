@@ -47,14 +47,24 @@ class DataLoaderTests extends GrailsUnitTestCase {
     def setupCreateDataSourceMsSql(){
         def username = "sa"
         def password = "xxx"
-        def url = CH.config.dataLoadMsSql.createUrl
+        def url = CH.config.dataLoadMsSql.createUrl + CH.config.dataLoadMsSql.createDbName
         def driverClassName = "net.sourceforge.jtds.jdbc.Driver"
         return new DriverManagerDataSource(driverClassName,url,username,password)
     }
 
-//    def testDataLoadMsSql(){
-//
-//    }
+    def testSchemaLoadMsSql(){
+        dc.dataSource=setupCreateDataSourceMsSql()
+        assertEquals("MsSql",CH.config.dataLoadMsSql.platform)
+        dc.loadSchema(CH.config.dataLoadMsSql.schemaFiles,CH.config.dataLoad.createDbName)
+    }
+
+
+    def testDataLoadMsSql(){
+        dc.dataSource=setupCreateDataSourceMsSql()
+        assertEquals("MsSql",CH.config.dataLoadMsSql.platform)
+        dc.load(CH.config.dataLoadMsSql.seedFiles)
+    }
+
 
     // Oracle
 
@@ -62,12 +72,21 @@ class DataLoaderTests extends GrailsUnitTestCase {
         def username = "system"
         def password = "oracle"
         def url = CH.config.dataLoadOracle.createUrl
-        def driverClassName = "net.sourceforge.jtds.jdbc.Driver"
+        def driverClassName = "oracle.jdbc.OracleDriver"
         return new DriverManagerDataSource(driverClassName,url,username,password)
     }
 
-//    def testdataLoadOracle(){
-//
-//    }
+    def testSchemaLoadOracle(){
+        dc.dataSource=setupCreateDataSourceOracle()
+        assertEquals("Oracle",CH.config.dataLoadOracle.platform)
+        dc.loadSchema(CH.config.dataLoadOracle.schemaFiles,CH.config.dataLoad.createDbName)
+    }
+
+
+    def testDataLoadOracle(){
+        dc.dataSource=setupCreateDataSourceOracle()
+        assertEquals("Oracle",CH.config.dataLoadOracle.platform)
+        dc.load(CH.config.dataLoadOracle.seedFiles)
+    }
 
 }
