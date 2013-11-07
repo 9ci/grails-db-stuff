@@ -16,12 +16,12 @@
 package greenbill.dbstuff
 
 import org.codehaus.groovy.grails.commons.ApplicationHolder
-import ddlutils.io.DatabaseDataIO
-import ddlutils.PlatformFactory;
+import org.apache.ddlutils.io.DatabaseDataIO
+import org.apache.ddlutils.PlatformFactory;
 
-import ddlutils.io.DatabaseIO;
-import ddlutils.model.Database;
-import ddlutils.DdlUtilsException;
+import org.apache.ddlutils.io.DatabaseIO;
+import org.apache.ddlutils.model.Database;
+import org.apache.ddlutils.DdlUtilsException;
 
 public class DataLoader {
 	/** The database data io object. */

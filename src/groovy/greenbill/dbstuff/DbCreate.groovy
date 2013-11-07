@@ -16,7 +16,7 @@
 package greenbill.dbstuff
 
 import org.codehaus.groovy.grails.commons.ApplicationHolder
-import ddlutils.PlatformFactory;
+import org.apache.ddlutils.PlatformFactory;
 
 public class DbCreate {
 

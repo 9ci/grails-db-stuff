@@ -19,9 +19,9 @@ import org.codehaus.groovy.grails.commons.ApplicationHolder
 import org.dbunit.dataset.xml.*;
 import org.dbunit.dataset.excel.*;
 import org.dbunit.dataset.csv.*
-import ddlutils.io.DatabaseDataDiffIO
-import ddlutils.PlatformFactory
-import ddlutils.model.Database
+import org.apache.ddlutils.io.DatabaseDataDiffIO
+import org.apache.ddlutils.PlatformFactory
+import org.apache.ddlutils.model.Database
 
 public class DataExport {
 	def dataSource
