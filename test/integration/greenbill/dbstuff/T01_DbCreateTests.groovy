@@ -6,7 +6,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource
 import grails.test.*
 import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
 
-class DbCreateTests extends GrailsUnitTestCase {
+class T01_DbCreateTests extends GrailsUnitTestCase {
 	def dataSource
 	def dbc
 	boolean transactional = false

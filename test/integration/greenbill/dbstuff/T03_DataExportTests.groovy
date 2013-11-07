@@ -4,7 +4,7 @@ import grails.test.GrailsUnitTestCase
 import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
 import org.springframework.jdbc.datasource.DriverManagerDataSource
 
-class DataExportTests extends GrailsUnitTestCase {
+class T03_DataExportTests extends GrailsUnitTestCase {
     def dataSource
     def de
     boolean transactional = false
