@@ -13,29 +13,15 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package greenbill.dbstuff;
-import groovy.sql.Sql
-import java.sql.SQLException
+package greenbill.dbstuff
 
-import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.commons.ApplicationHolder
-import org.dbunit.database.*
-
 import org.dbunit.dataset.xml.*;
 import org.dbunit.dataset.excel.*;
-import org.dbunit.dataset.csv.*;
-import org.dbunit.operation.DatabaseOperation;
-import org.dbunit.database.DatabaseDataSourceConnection
-
-import org.springframework.context.ApplicationContextAware
-import org.springframework.context.ApplicationContext
-import org.apache.ddlutils.io.DatabaseDataDiffIO;
-import org.apache.ddlutils.Platform;
-import org.apache.ddlutils.PlatformFactory;
-
-import org.apache.ddlutils.io.DatabaseIO;
-import org.apache.ddlutils.model.Database;
-import org.apache.ddlutils.DdlUtilsException;
+import org.dbunit.dataset.csv.*
+import ddlutils.io.DatabaseDataDiffIO
+import ddlutils.PlatformFactory
+import ddlutils.model.Database
 
 public class DataExport {
 	def dataSource

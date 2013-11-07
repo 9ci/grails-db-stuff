@@ -12,7 +12,7 @@ class DataExportTests extends GrailsUnitTestCase {
     protected void setUp() {
         super.setUp()
         de = new DataExport()
-       outPath ="file:target/"
+       outPath ="/home/holger/9ci/target/"
     }
 
     protected void tearDown() {
@@ -53,7 +53,7 @@ class DataExportTests extends GrailsUnitTestCase {
     def setupCreateDataSourceMsSql(){
         def username = "sa"
         def password = "xxx"
-        def url = CH.config.dataLoadMsSql.createUrl
+        def url = CH.config.dataLoadMsSql.createUrl + CH.config.dataLoad.createDbName
         def driverClassName = "net.sourceforge.jtds.jdbc.Driver"
         return new DriverManagerDataSource(driverClassName,url,username,password)
     }
@@ -75,7 +75,7 @@ class DataExportTests extends GrailsUnitTestCase {
     def setupCreateDataSourceOracle(){
         def username = "system"
         def password = "oracle"
-        def url = CH.config.dataLoadOracle.createUrl
+        def url = CH.config.dataLoadOracle.createUrl + CH.config.dataLoad.createDbName
         def driverClassName = "oracle.jdbc.OracleDriver"
         return new DriverManagerDataSource(driverClassName,url,username,password)
     }

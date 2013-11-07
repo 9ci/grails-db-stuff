@@ -69,8 +69,8 @@ class DataLoaderTests extends GrailsUnitTestCase {
     // Oracle
 
     def setupCreateDataSourceOracle(){
-        def username = "system"
-        def password = "oracle"
+        def username = "gbtest"
+        def password = "gbtest"
         def url = CH.config.dataLoadOracle.createUrl
         def driverClassName = "oracle.jdbc.OracleDriver"
         return new DriverManagerDataSource(driverClassName,url,username,password)
@@ -79,7 +79,7 @@ class DataLoaderTests extends GrailsUnitTestCase {
     def testSchemaLoadOracle(){
         dc.dataSource=setupCreateDataSourceOracle()
         assertEquals("Oracle",CH.config.dataLoadOracle.platform)
-        dc.loadSchema(CH.config.dataLoadOracle.schemaFiles,CH.config.dataLoad.createDbName)
+        dc.loadSchema(CH.config.dataLoadOracle.schemaFiles,true)
     }
 
 

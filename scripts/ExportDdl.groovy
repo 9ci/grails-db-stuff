@@ -1,10 +1,10 @@
 import groovy.sql.Sql
 import java.sql.SQLException
-import org.apache.ddlutils.io.DatabaseIO;
-import org.apache.ddlutils.Platform;
-import org.apache.ddlutils.PlatformFactory;
-import org.apache.ddlutils.model.Database;
-import org.apache.ddlutils.model.CloneHelper;
+import ddlutils.io.DatabaseIO;
+import ddlutils.Platform;
+import ddlutils.PlatformFactory;
+import ddlutils.model.Database;
+import ddlutils.model.CloneHelper;
 
 //includeTargets << grailsScript("Init")
 //includeTargets << grailsScript("_GrailsCompile")

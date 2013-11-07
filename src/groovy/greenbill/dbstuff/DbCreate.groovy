@@ -13,19 +13,10 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package greenbill.dbstuff;
-import groovy.sql.Sql
-import java.sql.SQLException
+package greenbill.dbstuff
 
-import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.commons.ApplicationHolder
-
-import org.springframework.context.ApplicationContextAware
-import org.springframework.context.ApplicationContext
-	
-import org.apache.ddlutils.io.DatabaseDataIO;
-import org.apache.ddlutils.Platform;
-import org.apache.ddlutils.PlatformFactory;
+import ddlutils.PlatformFactory;
 
 public class DbCreate {
 
