@@ -32,7 +32,7 @@ class T02_DataLoaderTests extends GrailsUnitTestCase {
     def testSchemaLoadMySql(){
         dc.dataSource=setupCreateDataSourceMySql()
         assertEquals("MySQL",CH.config.dataLoad.platform)
-        dc.loadSchema(CH.config.dataLoad.schemaFiles,CH.config.dataLoad.createDbName)
+        dc.loadSchema(CH.config.dataLoad.schemaFiles,false)
     }
 
 
@@ -55,7 +55,7 @@ class T02_DataLoaderTests extends GrailsUnitTestCase {
     def testSchemaLoadMsSql(){
         dc.dataSource=setupCreateDataSourceMsSql()
         assertEquals("MsSql",CH.config.dataLoadMsSql.platform)
-        dc.loadSchema(CH.config.dataLoadMsSql.schemaFiles,CH.config.dataLoad.createDbName)
+        dc.loadSchema(CH.config.dataLoadMsSql.schemaFiles,false)
     }
 
 
@@ -69,9 +69,9 @@ class T02_DataLoaderTests extends GrailsUnitTestCase {
     // Oracle
 
     def setupCreateDataSourceOracle(){
-        def username = "gbtest"
-        def password = "gbtest"
-        def url = CH.config.dataLoadOracle.createUrl
+        def username = "dbstufftest"
+        def password = "oracle"
+        def url = CH.config.dataLoadOracle.createUrl + ":" + CH.config.dataLoadOracle.createDbName
         def driverClassName = "oracle.jdbc.OracleDriver"
         return new DriverManagerDataSource(driverClassName,url,username,password)
     }

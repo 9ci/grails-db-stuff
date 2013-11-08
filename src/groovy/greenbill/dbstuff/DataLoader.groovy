@@ -67,6 +67,7 @@ public class DataLoader {
 		appCtx.getResources(path).each{
 			Database curModel = readSchemaFile(dreader, it.file);
 
+
 			if(!model){
 				model = curModel
 			}else if (curModel){
