@@ -6,9 +6,21 @@
         <datasource-map />
       </configuration>
     </facet>
+    <facet type="web" name="GrailsWeb">
+      <configuration>
+        <webroots>
+          <root url="file://$USER_HOME$/.grails/1.3.7/projects/grails-db-stuff/plugins/database-migration-1.0/grails-app/views" relative="/" />
+        </webroots>
+        <sourceRoots />
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
+    <content url="file://$USER_HOME$/.grails/1.3.7/projects/grails-db-stuff/plugins/database-migration-1.0">
+      <sourceFolder url="file://$USER_HOME$/.grails/1.3.7/projects/grails-db-stuff/plugins/database-migration-1.0/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/1.3.7/projects/grails-db-stuff/plugins/database-migration-1.0/grails-app/controllers" isTestSource="false" />
+    </content>
     <content url="file://$USER_HOME$/.grails/1.3.7/projects/grails-db-stuff/plugins/hibernate-1.3.7" />
     <content url="file://$USER_HOME$/.grails/1.3.7/projects/grails-db-stuff/plugins/tomcat-1.3.7">
       <sourceFolder url="file://$USER_HOME$/.grails/1.3.7/projects/grails-db-stuff/plugins/tomcat-1.3.7/src/groovy" isTestSource="false" />
@@ -20,6 +32,7 @@
       <library name="Grails User Library (grails-db-stuff-grailsPlugins)">
         <CLASSES>
           <root url="file://$USER_HOME$/.grails/1.3.7/projects/grails-db-stuff/plugins/tomcat-1.3.7/lib" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.liquibase/liquibase-core/jars/liquibase-core-2.0.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

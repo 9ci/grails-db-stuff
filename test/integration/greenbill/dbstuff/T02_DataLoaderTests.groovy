@@ -83,7 +83,7 @@ class T02_DataLoaderTests extends GrailsUnitTestCase {
     def testSchemaLoadOracle(){
         dc.dataSource=setupCreateDataSourceOracle()
         assertEquals("Oracle10",CH.config.dataLoadOracle.platform)
-        dc.loadSchema(CH.config.dataLoadOracle.schemaFiles,false)
+        dc.loadSchema(CH.config.dataLoadOracle.schemaFiles,true)
     }
 
 
