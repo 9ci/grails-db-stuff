@@ -33,7 +33,7 @@ dataLoadOracle{
     sqlFiles = "file:db/sqlscripts/oracle/*.sql" //this goes to ant so it just needs a directory
     seedFiles = "file:db/data/base/*.xml" //the base data the should go into the core database after the schema
     loadType = "drop-create" //create,drop-create, insert, insert-fresh
-    platform="Oracle" //MySQL,MsSql platform will be autodetected if it can be but its better to specify it if you can. see http://db.apache.org/ddlutils/ for list
+    platform="Oracle10" //MySQL,MsSql platform will be autodetected if it can be but its better to specify it if you can. see http://db.apache.org/ddlutils/ for list
     createUrl = "jdbc:oracle:thin:@192.168.1.139:1521" //the base url to use to try and create the dabase
     createDbName = "orcl" //name of the database to create
 }

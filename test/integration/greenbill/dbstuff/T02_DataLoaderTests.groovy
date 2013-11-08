@@ -73,19 +73,23 @@ class T02_DataLoaderTests extends GrailsUnitTestCase {
         def password = "oracle"
         def url = CH.config.dataLoadOracle.createUrl + ":" + CH.config.dataLoadOracle.createDbName
         def driverClassName = "oracle.jdbc.OracleDriver"
-        return new DriverManagerDataSource(driverClassName,url,username,password)
+        def dmds = new DriverManagerDataSource(driverClassName,url,username,password)
+        dmds.connectionProperties = new Properties()
+        //dmds.connectionProperties.setProperty("schema", "dbstufftest")
+//        dmds.properties.put("schema", "dbstufftest")
+        return dmds
     }
 
     def testSchemaLoadOracle(){
         dc.dataSource=setupCreateDataSourceOracle()
-        assertEquals("Oracle",CH.config.dataLoadOracle.platform)
-        dc.loadSchema(CH.config.dataLoadOracle.schemaFiles,true)
+        assertEquals("Oracle10",CH.config.dataLoadOracle.platform)
+        dc.loadSchema(CH.config.dataLoadOracle.schemaFiles,false)
     }
 
 
     def testDataLoadOracle(){
         dc.dataSource=setupCreateDataSourceOracle()
-        assertEquals("Oracle",CH.config.dataLoadOracle.platform)
+        assertEquals("Oracle10",CH.config.dataLoadOracle.platform)
         dc.load(CH.config.dataLoadOracle.seedFiles)
     }
 

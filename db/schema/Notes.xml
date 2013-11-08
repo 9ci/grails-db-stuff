@@ -11,7 +11,7 @@
     <column name="EditedDate" type="TIMESTAMP" size="23,3" description="is the date the row was last edited" />
     <column name="LinkedId" required="true" type="INTEGER" size="10" default="0" />
     <column name="LinkedTable" type="VARCHAR" size="50" />
-    <column name="Note" type="VARCHAR" size="5000" />
+    <column name="Note" type="VARCHAR" size="4000" />
     <column name="Sequence" type="INTEGER" size="10" />
     <column name="SourceId" type="VARCHAR" size="50"  />
     <column name="Source" type="VARCHAR" size="50"  />

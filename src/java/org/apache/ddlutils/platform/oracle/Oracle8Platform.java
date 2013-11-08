@@ -20,6 +20,7 @@ package org.apache.ddlutils.platform.oracle;
  */
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.sql.Types;
 import java.util.Map;
 
@@ -31,10 +32,7 @@ import org.apache.ddlutils.alteration.RemoveColumnChange;
 import org.apache.ddlutils.alteration.RemovePrimaryKeyChange;
 import org.apache.ddlutils.alteration.TableChange;
 import org.apache.ddlutils.alteration.TableDefinitionChangesPredicate;
-import org.apache.ddlutils.model.CascadeActionEnum;
-import org.apache.ddlutils.model.Column;
-import org.apache.ddlutils.model.Database;
-import org.apache.ddlutils.model.Table;
+import org.apache.ddlutils.model.*;
 import org.apache.ddlutils.platform.CreationParameters;
 import org.apache.ddlutils.platform.DefaultTableDefinitionChangesPredicate;
 import org.apache.ddlutils.platform.PlatformImplBase;
@@ -61,6 +59,8 @@ public class Oracle8Platform extends PlatformImplBase
     public static final String JDBC_SUBPROTOCOL_OCI8     = "oracle:oci8";
     /** The old thin subprotocol used by the standard Oracle driver. */
     public static final String JDBC_SUBPROTOCOL_THIN_OLD = "oracle:dnldthin";
+    /** contains special JDBC Types in Oracle - not tested below version 10 */
+    public static final String ORACLE_JDBC_TYPES_CLASSNAME = "oracle.jdbc.OracleTypes";
 
     /**
      * Creates a new platform instance.
@@ -75,6 +75,7 @@ public class Oracle8Platform extends PlatformImplBase
         info.setSupportedOnUpdateActions(new CascadeActionEnum[] { CascadeActionEnum.NONE });
         info.setSupportedOnDeleteActions(new CascadeActionEnum[] { CascadeActionEnum.CASCADE, CascadeActionEnum.SET_NULL, CascadeActionEnum.NONE });
         info.addEquivalentOnDeleteActions(CascadeActionEnum.NONE, CascadeActionEnum.RESTRICT);
+
 
         // Note that the back-mappings are partially done by the model reader, not the driver
         info.addNativeTypeMapping(Types.ARRAY,         "BLOB",             Types.BLOB);
@@ -102,6 +103,7 @@ public class Oracle8Platform extends PlatformImplBase
         info.addNativeTypeMapping(Types.TINYINT,       "NUMBER(3)");
         info.addNativeTypeMapping(Types.VARBINARY,     "RAW");
         info.addNativeTypeMapping(Types.VARCHAR,       "VARCHAR2");
+        getPlatformInfo().addNativeTypeMapping(Types.TIMESTAMP, "TIMESTAMP");
 
         info.setDefaultSize(Types.CHAR,       254);
         info.setDefaultSize(Types.VARCHAR,    254);
@@ -110,6 +112,7 @@ public class Oracle8Platform extends PlatformImplBase
 
         setSqlBuilder(new Oracle8Builder(this));
         setModelReader(new Oracle8ModelReader(this));
+        registerOracleSpecificJDBCTypes();
     }
 
     /**
@@ -222,5 +225,23 @@ public class Oracle8Platform extends PlatformImplBase
         ((Oracle8Builder)getSqlBuilder()).dropPrimaryKey(changedTable);
         getSqlBuilder().createPrimaryKey(changedTable, newPKColumns);
         change.apply(currentModel, isDelimitedIdentifierModeOn());
+    }
+
+    private void registerOracleSpecificJDBCTypes() {
+        getLog().debug( "Trying to register " + DATABASENAME+ " specific JDBCTypes." );
+        try {
+            Class oracleTypes = Class.forName( ORACLE_JDBC_TYPES_CLASSNAME );
+            Field timestamptz = oracleTypes.getField( "TIMESTAMPTZ" );
+            Field timestampltz = oracleTypes.getField( "TIMESTAMPLTZ" );
+            Field binaryDouble = oracleTypes.getField("BINARY_DOUBLE");
+            Field intervalYtoM = oracleTypes.getField("INTERVALYM");
+            TypeMap.registerJdbcType(timestamptz.getInt(timestamptz), "TIMESTAMP(6) WITH TIME ZONE", JdbcTypeCategoryEnum.DATETIME);
+            TypeMap.registerJdbcType( timestampltz.getInt( timestampltz ), "TIMESTAMP(6) WITH LOCAL TIME ZONE", JdbcTypeCategoryEnum.DATETIME );
+            TypeMap.registerJdbcType( binaryDouble.getInt( binaryDouble ), "BINARY DOUBLE", JdbcTypeCategoryEnum.BINARY);
+            TypeMap.registerJdbcType( intervalYtoM.getInt( intervalYtoM ), "INTERVAL YEAR TO MONTH", JdbcTypeCategoryEnum.DATETIME);
+        }
+        catch ( Exception e ) {
+            getLog().warn( "Could not register additional JDBC Types: " + e.getLocalizedMessage(), e );
+        }
     }
 }

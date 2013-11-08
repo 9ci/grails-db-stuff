@@ -96,7 +96,7 @@ public class Oracle8Builder extends SqlBuilder
     /**
      * {@inheritDoc}
      */
-    public void dropTable(Table table) throws IOException
+    public void dropTableBase(Table table) throws IOException
     {
         Column[] columns = table.getAutoIncrementColumns();
 
@@ -109,6 +109,27 @@ public class Oracle8Builder extends SqlBuilder
         print("DROP TABLE ");
         printIdentifier(getTableName(table));
         print(" CASCADE CONSTRAINTS");
+        printEndOfStatement();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void dropTable(Table table) throws IOException
+    {
+        // The only difference to the Oracle 8/9 variant is the purge which prevents the
+        // table from being moved to the recycle bin (which is new in Oracle 10)
+        Column[] columns = table.getAutoIncrementColumns();
+
+        for (int idx = 0; idx < columns.length; idx++)
+        {
+            dropAutoIncrementTrigger(table, columns[idx]);
+            dropAutoIncrementSequence(table, columns[idx]);
+        }
+
+        print("DROP TABLE ");
+        printIdentifier(getTableName(table));
+        print(" CASCADE CONSTRAINTS PURGE");
         printEndOfStatement();
     }
 

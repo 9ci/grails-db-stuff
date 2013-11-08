@@ -19,6 +19,10 @@ package org.apache.ddlutils.platform.oracle;
  * under the License.
  */
 
+import org.apache.ddlutils.model.JdbcTypeCategoryEnum;
+import org.apache.ddlutils.model.TypeMap;
+import java.lang.reflect.Field;
+
 /**
  * The platform for Oracle 10.
  *
@@ -38,6 +42,8 @@ public class Oracle10Platform extends Oracle9Platform
         setSqlBuilder(new Oracle10Builder(this));
         setModelReader(new Oracle10ModelReader(this));
     }
+
+
 
     /**
      * {@inheritDoc}
