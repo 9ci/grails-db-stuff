@@ -235,10 +235,14 @@ public class Oracle8Platform extends PlatformImplBase
             Field timestampltz = oracleTypes.getField( "TIMESTAMPLTZ" );
             Field binaryDouble = oracleTypes.getField("BINARY_DOUBLE");
             Field intervalYtoM = oracleTypes.getField("INTERVALYM");
+            Field sqlXml = oracleTypes.getField("SQLXML");
+            Field bFile = oracleTypes.getField("BFILE");
             TypeMap.registerJdbcType(timestamptz.getInt(timestamptz), "TIMESTAMP(6) WITH TIME ZONE", JdbcTypeCategoryEnum.DATETIME);
             TypeMap.registerJdbcType( timestampltz.getInt( timestampltz ), "TIMESTAMP(6) WITH LOCAL TIME ZONE", JdbcTypeCategoryEnum.DATETIME );
             TypeMap.registerJdbcType( binaryDouble.getInt( binaryDouble ), "BINARY DOUBLE", JdbcTypeCategoryEnum.BINARY);
             TypeMap.registerJdbcType( intervalYtoM.getInt( intervalYtoM ), "INTERVAL YEAR TO MONTH", JdbcTypeCategoryEnum.DATETIME);
+            TypeMap.registerJdbcType( sqlXml.getInt( sqlXml ), "SQL XML", JdbcTypeCategoryEnum.TEXTUAL);
+            TypeMap.registerJdbcType( bFile.getInt( bFile ), "BINARY FILE", JdbcTypeCategoryEnum.BINARY);
         }
         catch ( Exception e ) {
             getLog().warn( "Could not register additional JDBC Types: " + e.getLocalizedMessage(), e );

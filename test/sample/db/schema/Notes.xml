@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<database xmlns="http://db.apache.org/ddlutils/schema/1.1" name="itv91ref">
+  <table name="Notes" description="A generic table for NameDescription">
+    <column name="OID" primaryKey="true" required="true" type="INTEGER" size="10" description="is used in nearly all 9ci tables as the row unique identifier" />
+    <column name="Version" type="INTEGER" size="10" default="0" description="is defined in OidVersion and is used for multiuser database integrity purposes to avoid simultaneous overwrite situations" />
+    <column name="ActivityId" type="INTEGER" size="10" description="references Activities" />
+	<column name="AttachmentId" type="INTEGER" size="10" description="references Activities" />
+    <column name="CreatedBy" required="true" type="INTEGER" size="10" default="0" description="is the user id of the person who created this row" />
+    <column name="CreatedDate" type="TIMESTAMP" size="23,3" description="is the date the row was created" />
+    <column name="EditedBy" required="true" type="INTEGER" size="10" default="0" description="is the user id of the person who last edited this row" />
+    <column name="EditedDate" type="TIMESTAMP" size="23,3" description="is the date the row was last edited" />
+    <column name="LinkedId" required="true" type="INTEGER" size="10" default="0" />
+    <column name="LinkedTable" type="VARCHAR" size="50" />
+    <column name="Note" type="VARCHAR" size="4000" />
+    <column name="Sequence" type="INTEGER" size="10" />
+    <column name="SourceId" type="VARCHAR" size="50"  />
+    <column name="Source" type="VARCHAR" size="50"  />
+    <column name="Subject" type="VARCHAR" size="255" />
+    <column name="TypeId" required="true" type="INTEGER" size="10" default="0" />
+    <column name="Visible" type="INTEGER" size="10" default="0" />
+    <column name="Void" type="BIT" size="1" default="0"  />
+    <index name="IX_Notes_LinkedTable_LinkedId">
+      <index-column name="LinkedTable" />
+      <index-column name="LinkedId" />
+    </index>
+    <index name="IX_Notes_CreatedBy">
+      <index-column name="CreatedBy" />
+    </index>
+    <index name="IX_Notes_CreatedDate">
+      <index-column name="CreatedDate" />
+    </index>
+  </table>
+</database>

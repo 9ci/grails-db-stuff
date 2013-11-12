@@ -10,7 +10,7 @@ import ddlutils.model.CloneHelper;
 //includeTargets << grailsScript("_GrailsCompile")
 includeTargets << grailsScript("Bootstrap")
 
-target(main: "Export the table schemas for xml file") {
+target(exportDdl: "Export the table schemas for xml file") {
 	depends(parseArguments,bootstrap)
 	def outpath = argsMap.params[1] ? argsMap.params[1] : "sql/schema/out/schema.xml"
 	def tables = argsMap.params[0] ? argsMap.params[0] : "*"
@@ -57,4 +57,4 @@ target(split: "Splits a big xml schema file into one table per file arrangment")
 
 }
 
-setDefaultTarget(main)
+setDefaultTarget(exportDdl)

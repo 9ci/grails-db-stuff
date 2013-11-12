@@ -361,6 +361,7 @@ public class Oracle8ModelReader extends JdbcModelReader
         try
         {
             stmt = getConnection().prepareStatement(query);
+
             stmt.setString(1, (String)values.get("TABLE_NAME"));
 
             ResultSet rs = stmt.executeQuery();

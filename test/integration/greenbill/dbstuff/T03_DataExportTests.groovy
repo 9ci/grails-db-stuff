@@ -75,20 +75,20 @@ class T03_DataExportTests extends GrailsUnitTestCase {
     def setupCreateDataSourceOracle(){
         def username = "system"
         def password = "oracle"
-        def url = CH.config.dataLoadOracle.createUrl + CH.config.dataLoadOracle.createDbName
+        def url = CH.config.dataLoadOracle.createUrl + ":" + CH.config.dataLoadOracle.createDbName
         def driverClassName = "oracle.jdbc.OracleDriver"
         return new DriverManagerDataSource(driverClassName,url,username,password)
     }
 
     def testExportOracle(){
         de.dataSource=setupCreateDataSourceOracle()
-        assertEquals("Oracle",CH.config.dataLoadOracle.platform)
+        assertEquals("Oracle10",CH.config.dataLoadOracle.platform)
         de.export("Notes,Parameters", outPath)
     }
 
     def testExportDiffOracle(){
         de.dataSource=setupCreateDataSourceOracle()
-        assertEquals("Oracle",CH.config.dataLoadOracle.platform)
+        assertEquals("Oracle10",CH.config.dataLoadOracle.platform)
         de.exportDiff(CH.config.dataLoadOracle.seedFiles, outPath)
     }
 }

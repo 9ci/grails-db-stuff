@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-includeTargets << new File("${databaseMigrationPluginDir}/scripts/_DatabaseMigrationCommon.groovy")
+includeTargets << new File("$databaseMigrationPluginDir/scripts/_DatabaseMigrationCommon.groovy")
 includeTargets << new File("${dbStuffPluginDir}/scripts/_ConfigDataSource.groovy")
 
 target(dbCreate: 'Updates database to current version') {
@@ -23,7 +23,7 @@ target(dbCreate: 'Updates database to current version') {
     def dbc = grailsApp.classLoader.loadClass("greenbill.dbstuff.DbCreate").newInstance()
     dbc.dataSource=getCreateDataSource()
     println "about to drop and recreate the database for ${dsConfig.dataLoad.createDbName}"
-    dbc.dropAndCreate(dsConfig.dataLoad.createDbName,dsConfig)
+    //dbc.dropAndCreate(dsConfig.dataLoad.createDbName,dsConfig)
     println "created ${dsConfig.dataLoad.createDbName}"
 
     try {

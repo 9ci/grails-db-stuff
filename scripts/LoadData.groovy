@@ -4,6 +4,7 @@ import java.sql.SQLException
 import org.springframework.jdbc.datasource.DriverManagerDataSource
 
 includeTargets << grailsScript("Bootstrap")
+includeTargets << new File("${dbStuffPluginDir}/scripts/_ConfigDataSource.groovy")
 
 def props = new Properties()
 def filename = "${basedir}/ddl.sql"

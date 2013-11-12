@@ -29,7 +29,7 @@ public class DataLoader {
 	def dataSource
 	//ApplicationContext applicationContext
 
-	def load(path) {
+	def load(path,operation) {
 		//this.dataSource = dataSource
 		//def context = WebApplicationContextUtils.getWebApplicationContext(ServletContextHolder.servletContext);
 		def appCtx = ApplicationHolder.application.parentContext

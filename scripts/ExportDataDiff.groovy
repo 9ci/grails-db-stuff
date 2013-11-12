@@ -1,6 +1,6 @@
 includeTargets << new File("${dbStuffPluginDir}/scripts/_ConfigDataSource.groovy")
 
-target(main: "Export table diff data to files") {
+target(exportDataDiff: "Export table diff data to files") {
 	depends(parseArguments,packageApp,loadApp)
 
 	def outPath = argsMap.params[1] ? argsMap.params[1] : "sql/data/diff/"
@@ -14,4 +14,4 @@ target(main: "Export table diff data to files") {
 	println "data sent to xml files in $outPath"
 }
 
-setDefaultTarget(main)
+setDefaultTarget(exportDataDiff)
