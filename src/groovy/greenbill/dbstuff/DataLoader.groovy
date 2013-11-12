@@ -15,6 +15,8 @@
  */
 package greenbill.dbstuff
 
+import org.apache.ddlutils.platform.CreationParameters
+import org.apache.ddlutils.platform.oracle.Oracle8Platform
 import org.codehaus.groovy.grails.commons.ApplicationHolder
 import org.apache.ddlutils.io.DatabaseDataIO
 import org.apache.ddlutils.PlatformFactory;
@@ -38,7 +40,9 @@ public class DataLoader {
 		def sarray = appCtx.getResources(path).collect{it.inputStream} as InputStream[]
 		try{
 			dataio.dataLoadType="INSERT_NEW"
-			dataio.writeDataToDatabase(platform,sarray)	//methods insert_new,insert_update
+
+			dataio.writeDataToDatabase(platform,platform.readModelFromDatabase("dbstufftest"),sarray)	//methods insert_new,insert_update
+
 		}catch(e){
 			println "!!!!! error loading data from ${path}."
 			e.printStackTrace() 
@@ -83,7 +87,12 @@ public class DataLoader {
 			if (alterDb){
 				platform.alterTables(model, false)
 			}else{
-				platform.createTables(model, true, false)
+                if(platform.name == "Oracle")  {
+                    platform.createTables(model, false, false)
+                } else {
+                    platform.createTables(model, true, false)
+                }
+
 			}
 		}else{
 			throw new DdlUtilsException("No schemas found for $path");
