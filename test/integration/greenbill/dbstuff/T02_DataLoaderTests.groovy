@@ -39,7 +39,7 @@ class T02_DataLoaderTests extends GrailsUnitTestCase {
     def testDataLoadMySql(){
         dc.dataSource=setupCreateDataSourceMySql()
         assertEquals("MySQL",CH.config.dataLoad.platform)
-        dc.load(CH.config.dataLoad.seedFiles)
+        dc.load(CH.config.dataLoad.seedFiles, null)
     }
 
     // MsSql
@@ -62,7 +62,7 @@ class T02_DataLoaderTests extends GrailsUnitTestCase {
     def testDataLoadMsSql(){
         dc.dataSource=setupCreateDataSourceMsSql()
         assertEquals("MsSql",CH.config.dataLoadMsSql.platform)
-        dc.load(CH.config.dataLoadMsSql.seedFiles)
+        dc.load(CH.config.dataLoadMsSql.seedFiles, null)
     }
 
 

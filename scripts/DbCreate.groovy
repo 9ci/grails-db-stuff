@@ -23,8 +23,12 @@ target(dbCreate: 'Updates database to current version') {
     def dbc = grailsApp.classLoader.loadClass("greenbill.dbstuff.DbCreate").newInstance()
     dbc.dataSource=getCreateDataSource()
     println "about to drop and recreate the database for ${dsConfig.dataLoad.createDbName}"
-    //dbc.dropAndCreate(dsConfig.dataLoad.createDbName,dsConfig)
-    println "created ${dsConfig.dataLoad.createDbName}"
+    println "dbs.datasource.url ${dbc.dataSource.url}"
+     if (!dbc.dataSource.url.contains("oracle")){
+         println "really creating the DB"
+        dbc.dropAndCreate(dsConfig.dataLoad.createDbName,dsConfig)
+     }
+     println "created ${dsConfig.dataLoad.createDbName}"
 
     try {
         MigrationUtils.executeInSession {

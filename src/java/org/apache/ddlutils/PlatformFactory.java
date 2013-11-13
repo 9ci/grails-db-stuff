@@ -121,6 +121,7 @@ public class PlatformFactory
         Platform platform = createNewPlatformInstance(new PlatformUtils().determineDatabaseType(dataSource));
 
         platform.setDataSource(dataSource);
+
         return platform;
     }
 

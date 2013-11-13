@@ -29,9 +29,13 @@ public class DataExport {
 	def exportDiff(inputPath,outputPath){
 		def appCtx = ApplicationHolder.application.parentContext
         def platform = PlatformFactory.createNewPlatformInstance(dataSource)
-
-		Database model = platform.readModelFromDatabase(null);
-		DatabaseDataDiffIO dataio = new DatabaseDataDiffIO();
+        Database model
+        if(platform.name == "Oracle") {
+            model = platform.readModelFromDatabase(platform.username)
+        } else {
+            model = platform.readModelFromDatabase(null);
+        }
+        DatabaseDataDiffIO dataio = new DatabaseDataDiffIO();
 		def toCompare = appCtx.getResources(inputPath).collect{it.inputStream} as InputStream[]
 		try{
 			dataio.writeDiffDataToXML(platform, model, outputPath, toCompare)
@@ -48,10 +52,16 @@ public class DataExport {
 		String[] tableArray = tables.split(",")
 
         def platform = PlatformFactory.createNewPlatformInstance(dataSource)
-        Database model = platform.readModelFromDatabase(null);
+
+        Database model
+        if(platform.name == "Oracle") {
+            model = platform.readModelFromDatabase(null);
+        } else {
+            model = platform.readModelFromDatabase(null);
+        }
         DatabaseDataDiffIO dataio = new DatabaseDataDiffIO();
 		try{
-			dataio.writeDataToXML(platform,model, (tableArray as List), outPath)
+            dataio.writeDataToXML(platform,model, (tableArray as List), outPath)
 		}catch(e){
 			println "!!!!! error writing data"
 			e.printStackTrace() 

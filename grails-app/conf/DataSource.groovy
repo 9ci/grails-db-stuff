@@ -23,7 +23,7 @@ dataLoadMsSql{
     seedFiles = "file:db/data/base/*.xml" //the base data the should go into the core database after the schema
     loadType = "drop-create" //create,drop-create, insert, insert-fresh
     platform="MsSql" //MySQL,MsSql platform will be autodetected if it can be but its better to specify it if you can. see http://db.apache.org/ddlutils/ for list
-    createUrl = "jdbc:jtds:sqlserver://192.168.1.143:1433/" //the base url to use to try and create the dabase
+    createUrl = "jdbc:jtds:sqlserver://192.168.1.154:1433/" //the base url to use to try and create the dabase
     createDbName = "dbstufftest" //name of the database to create
 }
 
@@ -61,7 +61,7 @@ dataSourceOracle {
     pooled = false
     driverClassName = "oracle.jdbc.OracleDriver"
     dialect = "org.hibernate.dialect.Oracle10gDialect"
-    username =	"system"
+    username =	"dbstufftest"
     password = "oracle"
 }
 

@@ -66,9 +66,7 @@ public class Oracle8ModelReader extends JdbcModelReader
     {
         super(platform);
         setDefaultCatalogPattern(null);
-        //setDefaultSchemaPattern(null);
-        // in oracle the username is the name of the schema
-        setDefaultSchemaPattern(platform.getUsername());
+        setDefaultSchemaPattern(null);
         //setDefaultTablePattern("%");
         setDefaultTablePattern("*");
 

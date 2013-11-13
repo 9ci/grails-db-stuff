@@ -22,6 +22,7 @@ import org.apache.ddlutils.io.DatabaseDataIO
 import org.apache.ddlutils.PlatformFactory;
 
 import org.apache.ddlutils.io.DatabaseIO;
+import org.apache.ddlutils.io.DataReader;
 import org.apache.ddlutils.model.Database;
 import org.apache.ddlutils.DdlUtilsException;
 
@@ -36,12 +37,21 @@ public class DataLoader {
 		//def context = WebApplicationContextUtils.getWebApplicationContext(ServletContextHolder.servletContext);
 		def appCtx = ApplicationHolder.application.parentContext
 		//dataSource = appCtx.getBean('dataSource')
+		//def platform = PlatformFactory.createNewPlatformInstance(dataSource)
 		def platform = PlatformFactory.createNewPlatformInstance(dataSource)
-		def sarray = appCtx.getResources(path).collect{it.inputStream} as InputStream[]
+
+
+        def sarray = appCtx.getResources(path).collect{it.inputStream} as InputStream[]
 		try{
 			dataio.dataLoadType="INSERT_NEW"
-
-			dataio.writeDataToDatabase(platform,platform.readModelFromDatabase("dbstufftest"),sarray)	//methods insert_new,insert_update
+            if(platform.name == "Oracle")  {
+                dataio.dataLoadType = "INSERT_UPDATE"
+                Database model = platform.readModelFromDatabase("dbstufftest")
+                dataio.writeDataToDatabase(platform,sarray)
+                //platform.
+			} else{
+                dataio.writeDataToDatabase(platform,sarray)	//methods insert_new,insert_update
+            }
 
 		}catch(e){
 			println "!!!!! error loading data from ${path}."
@@ -117,5 +127,6 @@ public class DataLoader {
 		}
 		return model;
 	}
+
 
 }
