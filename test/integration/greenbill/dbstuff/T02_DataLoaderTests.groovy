@@ -69,7 +69,7 @@ class T02_DataLoaderTests extends GrailsUnitTestCase {
     // Oracle
 
     def setupCreateDataSourceOracle(){
-        def username = "dbstufftest"
+        def username = "system"
         def password = "oracle"
         def url = CH.config.dataLoadOracle.createUrl + ":" + CH.config.dataLoadOracle.createDbName
         def driverClassName = "oracle.jdbc.OracleDriver"

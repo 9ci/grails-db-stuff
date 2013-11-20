@@ -1,6 +1,8 @@
 package greenbill.dbstuff
 
 import grails.test.GrailsUnitTestCase
+import oracle.jdbc.pool.OracleDataSource
+import org.apache.commons.dbcp.BasicDataSource
 import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
 import org.springframework.jdbc.datasource.DriverManagerDataSource
 
@@ -37,7 +39,7 @@ class T03_DataExportTests extends GrailsUnitTestCase {
     def testExportMySql(){
         de.dataSource=setupCreateDataSourceMySql()
         assertEquals("MySQL",CH.config.dataLoad.platform)
-        de.export("Notes,Parameters", outPath)
+        de.export("*", outPath)
     }
 
     def testExportDiffMySql(){
@@ -61,7 +63,7 @@ class T03_DataExportTests extends GrailsUnitTestCase {
     def testExportMsSql(){
         de.dataSource=setupCreateDataSourceMsSql()
         assertEquals("MsSql",CH.config.dataLoadMsSql.platform)
-        de.export("Notes,Parameters", outPath)
+        de.export("*", outPath)
     }
 
     def testExportDiffMsSql(){
@@ -83,7 +85,7 @@ class T03_DataExportTests extends GrailsUnitTestCase {
     def testExportOracle(){
         de.dataSource=setupCreateDataSourceOracle()
         assertEquals("Oracle10",CH.config.dataLoadOracle.platform)
-        de.export("Notes,Parameters", outPath)
+        de.export("*", outPath)
     }
 
     def testExportDiffOracle(){

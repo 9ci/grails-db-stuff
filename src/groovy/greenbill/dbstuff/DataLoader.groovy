@@ -38,17 +38,14 @@ public class DataLoader {
 		def appCtx = ApplicationHolder.application.parentContext
 		//dataSource = appCtx.getBean('dataSource')
 		//def platform = PlatformFactory.createNewPlatformInstance(dataSource)
-		def platform = PlatformFactory.createNewPlatformInstance(dataSource)
-
+		def platform = PlatformFactory.createNewPlatformInstance("Oracle10")
+        platform.setDataSource(dataSource)
 
         def sarray = appCtx.getResources(path).collect{it.inputStream} as InputStream[]
 		try{
 			dataio.dataLoadType="INSERT_NEW"
-            if(platform.name == "Oracle")  {
-                dataio.dataLoadType = "INSERT_UPDATE"
-                Database model = platform.readModelFromDatabase("dbstufftest")
-                dataio.writeDataToDatabase(platform,sarray)
-                //platform.
+            if(platform.name == "Oracle10")  {
+                dataio.writeDataToDatabase(platform, sarray)
 			} else{
                 dataio.writeDataToDatabase(platform,sarray)	//methods insert_new,insert_update
             }
@@ -114,7 +111,6 @@ public class DataLoader {
 		
 	}
 
-
 	Database readSchemaFile(DatabaseIO dreader, File schemaFile){
 		println "reading schema from file ${schemaFile.name}"
 		Database model = null;
@@ -127,6 +123,11 @@ public class DataLoader {
 		}
 		return model;
 	}
+
+    def loadSpring(){
+
+    }
+
 
 
 }
