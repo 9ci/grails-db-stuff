@@ -33,21 +33,23 @@ public class DataLoader {
 	//ApplicationContext applicationContext
 
 	def load(path,operation) {
-		//this.dataSource = dataSource
-		//def context = WebApplicationContextUtils.getWebApplicationContext(ServletContextHolder.servletContext);
-		def appCtx = ApplicationHolder.application.parentContext
-		//dataSource = appCtx.getBean('dataSource')
-		//def platform = PlatformFactory.createNewPlatformInstance(dataSource)
-		def platform = PlatformFactory.createNewPlatformInstance("Oracle10")
-        platform.setDataSource(dataSource)
+
+        def appCtx = ApplicationHolder.application.parentContext
+
+        def platform = PlatformFactory.createNewPlatformInstance(dataSource)
 
         def sarray = appCtx.getResources(path).collect{it.inputStream} as InputStream[]
+
 		try{
 			dataio.dataLoadType="INSERT_NEW"
-            if(platform.name == "Oracle10")  {
-                dataio.writeDataToDatabase(platform, sarray)
-			} else{
+            if(platform.name != "Oracle")  {
                 dataio.writeDataToDatabase(platform,sarray)	//methods insert_new,insert_update
+            } else {
+                platform = PlatformFactory.createNewPlatformInstance("Oracle10")
+                platform.setDataSource(dataSource)
+                def dbName = ((String)dataSource.username).toUpperCase()
+                def model = platform.readModelFromDatabase(dbName,null, dbName, null)
+                dataio.writeDataToDatabase(platform, model, sarray)
             }
 
 		}catch(e){
@@ -56,21 +58,13 @@ public class DataLoader {
 		}finally{
 			sarray.each(){it.close() }
 		}
-/*		appCtx.getResources(path).each{
-			println "---loading data from ${it.filename}."
-			try{
-				dataio.writeDataToDatabase(platform,it.inputStream)
-			}catch(e){
-				println "!!!!! error loading data from ${it.filename}."
-				e.printStackTrace() 
-			}
-		}*/
 	}
 	
 	def loadSchema(path,alterDb) {
 		def appCtx = ApplicationHolder.application.parentContext
 
-		def platform = PlatformFactory.createNewPlatformInstance(dataSource)
+        def platform = PlatformFactory.createNewPlatformInstance(dataSource)
+
 		DatabaseIO dreader = new DatabaseIO()
 
 		Database   model  = null
@@ -92,18 +86,23 @@ public class DataLoader {
 		}//end file loop
 		if(model){
 			if (alterDb){
+                if(platform.name == "Oracle")  {
+                    platform = PlatformFactory.createNewPlatformInstance("Oracle10")
+                    platform.setDataSource(dataSource)
+                }
 				platform.alterTables(model, false)
+
 			}else{
                 if(platform.name == "Oracle")  {
-                    platform.createTables(model, false, false)
-                } else {
-                    platform.createTables(model, true, false)
+                    platform = PlatformFactory.createNewPlatformInstance("Oracle10")
+                    platform.setDataSource(dataSource)
                 }
+                platform.createTables(model, true, false)
 
 			}
 		}else{
 			throw new DdlUtilsException("No schemas found for $path");
-			//println "No schemas found for $path"
+			println "No schemas found for $path"
 		}	
 	}
 	

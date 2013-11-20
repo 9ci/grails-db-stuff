@@ -29,11 +29,14 @@ public class DataExport {
 	def exportDiff(inputPath,outputPath){
 		def appCtx = ApplicationHolder.application.parentContext
         def platform = PlatformFactory.createNewPlatformInstance(dataSource)
-        Database model
-        if(platform.name == "Oracle") {
-            model = platform.readModelFromDatabase(platform.username)
-        } else {
+        def model
+        if(platform.name != "Oracle") {
             model = platform.readModelFromDatabase(null);
+        } else {
+            platform = PlatformFactory.createNewPlatformInstance("Oracle10")
+            platform.setDataSource(dataSource)
+            def dbName = ((String)dataSource.username).toUpperCase()
+            model = platform.readModelFromDatabase(dbName,null, dbName, null)
         }
         DatabaseDataDiffIO dataio = new DatabaseDataDiffIO();
 		def toCompare = appCtx.getResources(inputPath).collect{it.inputStream} as InputStream[]
@@ -54,11 +57,15 @@ public class DataExport {
         def platform = PlatformFactory.createNewPlatformInstance(dataSource)
 
         Database model
-        if(platform.name == "Oracle") {
+        if(platform.name != "Oracle") {
             model = platform.readModelFromDatabase(null);
         } else {
-            model = platform.readModelFromDatabase(null);
+            platform = PlatformFactory.createNewPlatformInstance("Oracle10")
+            platform.setDataSource(dataSource)
+            def dbName = ((String)dataSource.username).toUpperCase()
+            model = platform.readModelFromDatabase(dbName,null, dbName, null)
         }
+
         DatabaseDataDiffIO dataio = new DatabaseDataDiffIO();
 		try{
             dataio.writeDataToXML(platform,model, (tableArray as List), outPath)
