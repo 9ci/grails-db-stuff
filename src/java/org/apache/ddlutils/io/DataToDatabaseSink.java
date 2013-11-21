@@ -62,8 +62,6 @@ public class DataToDatabaseSink implements DataSink
     private boolean _ensureFkOrder = true;
     /** Whether to use batch mode inserts. */
     private boolean _useBatchMode = false;
-    /** The type data insert to do. INSERT just tries to insert, INSERT_NEW will only insert if the row does not exist */
-    private String _dataLoadType = "INSERT";
     /** The queued objects for batch insertion. */
     private ArrayList _batchQueue = new ArrayList();
     /** The number of beans to insert in one batch. */
@@ -184,27 +182,6 @@ public class DataToDatabaseSink implements DataSink
     public void setUseBatchMode(boolean useBatchMode)
     {
         _useBatchMode = useBatchMode;
-    }
-
-    /**
-     * Specifies how to load the data. Insert will insert all and error if the row alrady exists.
-     * INSERT_NEW will only insert if the row exists
-     *
-     * @param dataLoadType INSERT or INSERT_NEW
-     */
-    public void setDataLoadType(String dataLoadType)
-    {
-        _dataLoadType = dataLoadType;
-    }
-
-    /**
-     * Returns the batch size override.
-     *
-     * @return how to load the data
-     */
-    public String getDataLoadType()
-    {
-        return _dataLoadType;
     }
 
     /**
