@@ -93,11 +93,14 @@ public class DataLoader {
 				platform.alterTables(model, false)
 
 			}else{
-                if(platform.name == "Oracle")  {
+                if(platform.name != "Oracle")  {
+                    platform.createTables(model, true, false)
+                } else {
                     platform = PlatformFactory.createNewPlatformInstance("Oracle10")
                     platform.setDataSource(dataSource)
+                    platform.createTables(model, false, false)
                 }
-                platform.createTables(model, true, false)
+
 
 			}
 		}else{
