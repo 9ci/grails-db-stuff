@@ -188,7 +188,7 @@ public abstract class TypeMap
      * @param typeName The type name (case is ignored)
      * @param category The type category
      */
-    public static void registerJdbcType(int typeCode, String typeName, JdbcTypeCategoryEnum category)
+    protected static void registerJdbcType(int typeCode, String typeName, JdbcTypeCategoryEnum category) 
     {
         Integer typeId = new Integer(typeCode);
 

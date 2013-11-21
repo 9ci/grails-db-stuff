@@ -81,8 +81,10 @@ public class Oracle8ModelReader extends JdbcModelReader
         }
     }
 
-
-    protected Table readTableBase(DatabaseMetaDataWrapper metaData, Map values) throws SQLException
+    /**
+     * {@inheritDoc}
+     */
+    protected Table readTable(DatabaseMetaDataWrapper metaData, Map values) throws SQLException
     {
         String tableName = (String)values.get("TABLE_NAME");
 
@@ -345,38 +347,4 @@ public class Oracle8ModelReader extends JdbcModelReader
         }
 		return indices.values();
 	}
-
-    /**
-     * {@inheritDoc}
-     */
-    protected Table readTable(DatabaseMetaDataWrapper metaData, Map values) throws SQLException
-    {
-        // Oracle 10 added the recycle bin which contains dropped database objects not yet purged
-        // Since we don't want entries from the recycle bin, we filter them out
-        final String query = "SELECT * FROM RECYCLEBIN WHERE OBJECT_NAME=?";
-
-        PreparedStatement stmt       = null;
-        boolean           deletedObj = false;
-
-        try
-        {
-            stmt = getConnection().prepareStatement(query);
-
-            stmt.setString(1, (String)values.get("TABLE_NAME"));
-
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next())
-            {
-                // we found the table in the recycle bin, so its a deleted one which we ignore
-                deletedObj = true;
-            }
-        }
-        finally
-        {
-            closeStatement(stmt);
-        }
-
-        return deletedObj ? null : readTableBase(metaData, values);
-    }
 }

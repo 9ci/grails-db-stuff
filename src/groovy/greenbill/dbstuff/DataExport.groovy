@@ -29,9 +29,16 @@ public class DataExport {
 	def exportDiff(inputPath,outputPath){
 		def appCtx = ApplicationHolder.application.parentContext
         def platform = PlatformFactory.createNewPlatformInstance(dataSource)
-
-		Database model = platform.readModelFromDatabase(null);
-		DatabaseDataDiffIO dataio = new DatabaseDataDiffIO();
+        def model
+        if(platform.name != "Oracle") {
+            model = platform.readModelFromDatabase(null);
+        } else {
+            platform = PlatformFactory.createNewPlatformInstance("Oracle10")
+            platform.setDataSource(dataSource)
+            def dbName = ((String)dataSource.username).toUpperCase()
+            model = platform.readModelFromDatabase(dbName,null, dbName, null)
+        }
+        DatabaseDataDiffIO dataio = new DatabaseDataDiffIO();
 		def toCompare = appCtx.getResources(inputPath).collect{it.inputStream} as InputStream[]
 		try{
 			dataio.writeDiffDataToXML(platform, model, outputPath, toCompare)
@@ -44,14 +51,24 @@ public class DataExport {
 	}
 	
 	def export(tables,outPath) {
-		//def db = DbUnitUtil.getConnection(dataSource)
+
 		String[] tableArray = tables.split(",")
 
         def platform = PlatformFactory.createNewPlatformInstance(dataSource)
-        Database model = platform.readModelFromDatabase(null);
+
+        Database model
+        if(platform.name != "Oracle") {
+            model = platform.readModelFromDatabase(null);
+        } else {
+            platform = PlatformFactory.createNewPlatformInstance("Oracle10")
+            platform.setDataSource(dataSource)
+            def dbName = ((String)dataSource.username).toUpperCase()
+            model = platform.readModelFromDatabase(dbName,null, dbName, null)
+        }
+
         DatabaseDataDiffIO dataio = new DatabaseDataDiffIO();
 		try{
-			dataio.writeDataToXML(platform,model, (tableArray as List), outPath)
+            dataio.writeDataToXML(platform,model, (tableArray as List), outPath)
 		}catch(e){
 			println "!!!!! error writing data"
 			e.printStackTrace() 
@@ -67,7 +84,6 @@ public class DataExport {
        try{
 		   if (_format.equalsIgnoreCase("xml")){
                FlatXmlWriter writer = new FlatXmlWriter(out, "UTF-8");
-	           //writer.setDocType(_doctype);
 	           writer.write(dataset);
            }
            else if (_format.equalsIgnoreCase("csv")){
