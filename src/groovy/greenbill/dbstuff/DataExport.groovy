@@ -51,7 +51,7 @@ public class DataExport {
 	}
 	
 	def export(tables,outPath) {
-		//def db = DbUnitUtil.getConnection(dataSource)
+
 		String[] tableArray = tables.split(",")
 
         def platform = PlatformFactory.createNewPlatformInstance(dataSource)
@@ -84,7 +84,6 @@ public class DataExport {
        try{
 		   if (_format.equalsIgnoreCase("xml")){
                FlatXmlWriter writer = new FlatXmlWriter(out, "UTF-8");
-	           //writer.setDocType(_doctype);
 	           writer.write(dataset);
            }
            else if (_format.equalsIgnoreCase("csv")){
