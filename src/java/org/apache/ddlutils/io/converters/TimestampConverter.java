@@ -23,7 +23,7 @@ import java.sql.Timestamp;
 import java.sql.Types;
 
 /**
- * Converts between {@link java.sql.Timestamp} and {@link String} using the standard
+ * Converts between {@link java.sql.Timestamp} and {@link java.lang.String} using the standard
  * representation "yyyy-mm-dd hh:mm:ss.fffffffff".
  * 
  * @version $Revision: 289996 $

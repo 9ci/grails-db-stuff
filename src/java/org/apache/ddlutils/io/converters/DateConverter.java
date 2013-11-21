@@ -29,7 +29,7 @@ import java.util.regex.PatternSyntaxException;
 import org.apache.ddlutils.DdlUtilsException;
 
 /**
- * Converts between {@link java.sql.Date} and {@link String} using the standard
+ * Converts between {@link java.sql.Date} and {@link java.lang.String} using the standard
  * representation "yyyy", or "yyyy-mm", or "yyyy-mm-dd".
  * 
  * @version $Revision: 289996 $

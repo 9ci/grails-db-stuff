@@ -24,8 +24,7 @@ target(dbCreate: 'Updates database to current version') {
     dbc.dataSource=getCreateDataSource()
     println "about to drop and recreate the database for ${dsConfig.dataLoad.createDbName}"
     println "dbs.datasource.url ${dbc.dataSource.url}"
-     if (!dbc.dataSource.url.contains("oracle")){
-         println "really creating the DB"
+     if (!dbc.dataSource.url.contains("Oracle")){
         dbc.dropAndCreate(dsConfig.dataLoad.createDbName,dsConfig)
      }
      println "created ${dsConfig.dataLoad.createDbName}"

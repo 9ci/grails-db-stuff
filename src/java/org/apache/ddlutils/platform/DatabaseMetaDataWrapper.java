@@ -144,7 +144,7 @@ public class DatabaseMetaDataWrapper
      * 
      * @param literalString The string to escape.
      * @return A string that can be properly used as a search string.
-     * @throws java.sql.SQLException If an error occurred retrieving the meta data
+     * @throws SQLException If an error occurred retrieving the meta data
      */
     public String escapeForSearch(String literalString) throws SQLException
     {
@@ -188,8 +188,8 @@ public class DatabaseMetaDataWrapper
      * 
      * @param tableNamePattern The pattern identifying for which tables to return info
      * @return The table meta data
-     * @throws java.sql.SQLException If an error occurred retrieving the meta data
-     * @see java.sql.DatabaseMetaData#getTables(String, String, String, String[])
+     * @throws SQLException If an error occurred retrieving the meta data
+     * @see DatabaseMetaData#getTables(java.lang.String, java.lang.String, java.lang.String, java.lang.String[])
      */
     public ResultSet getTables(String tableNamePattern) throws SQLException
     {
@@ -203,8 +203,8 @@ public class DatabaseMetaDataWrapper
      * @param tableNamePattern  The pattern identifying for which tables to return info
      * @param columnNamePattern The pattern identifying for which columns to return info
      * @return The column meta data
-     * @throws java.sql.SQLException If an error occurred retrieving the meta data
-     * @see java.sql.DatabaseMetaData#getColumns(String, String, String, String)
+     * @throws SQLException If an error occurred retrieving the meta data
+     * @see DatabaseMetaData#getColumns(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     public ResultSet getColumns(String tableNamePattern, String columnNamePattern) throws SQLException
     {
@@ -217,8 +217,8 @@ public class DatabaseMetaDataWrapper
      * 
      * @param tableNamePattern The pattern identifying for which tables to return info
      * @return The primary key meta data
-     * @throws java.sql.SQLException If an error occurred retrieving the meta data
-     * @see java.sql.DatabaseMetaData#getPrimaryKeys(String, String, String)
+     * @throws SQLException If an error occurred retrieving the meta data
+     * @see DatabaseMetaData#getPrimaryKeys(java.lang.String, java.lang.String, java.lang.String)
      */
     public ResultSet getPrimaryKeys(String tableNamePattern) throws SQLException
     {
@@ -231,8 +231,8 @@ public class DatabaseMetaDataWrapper
      * 
      * @param tableNamePattern The pattern identifying for which tables to return info
      * @return The foreign key meta data
-     * @throws java.sql.SQLException If an error occurred retrieving the meta data
-     * @see java.sql.DatabaseMetaData#getImportedKeys(String, String, String)
+     * @throws SQLException If an error occurred retrieving the meta data
+     * @see DatabaseMetaData#getImportedKeys(java.lang.String, java.lang.String, java.lang.String)
      */
     public ResultSet getForeignKeys(String tableNamePattern) throws SQLException
     {
@@ -247,8 +247,8 @@ public class DatabaseMetaDataWrapper
      * @param unique           Whether to return only indices for unique values
      * @param approximate      Whether the result is allowed to reflect approximate or out of data values
      * @return The index meta data
-     * @throws java.sql.SQLException If an error occurred retrieving the meta data
-     * @see java.sql.DatabaseMetaData#getIndexInfo(String, String, String, boolean, boolean)
+     * @throws SQLException If an error occurred retrieving the meta data
+     * @see DatabaseMetaData#getIndexInfo(java.lang.String, java.lang.String, java.lang.String, boolean, boolean)
      */
     public ResultSet getIndices(String tableNamePattern, boolean unique, boolean approximate) throws SQLException
     {

@@ -139,7 +139,7 @@ public class Reference implements Serializable
 
     /**
      * Sets the name of the local column. Note that you should not use this method when
-     * manipulating the model manually. Rather use the {@link #setLocalColumn(org.apache.ddlutils.model.Column)} method.
+     * manipulating the model manually. Rather use the {@link #setLocalColumn(Column)} method.
      * 
      * @param localColumnName The column name
      */
@@ -164,7 +164,7 @@ public class Reference implements Serializable
     
     /**
      * Sets the name of the remote column. Note that you should not use this method when
-     * manipulating the model manually. Rather use the {@link #setForeignColumn(org.apache.ddlutils.model.Column)} method.
+     * manipulating the model manually. Rather use the {@link #setForeignColumn(Column)} method.
      * 
      * @param foreignColumnName The column name
      */

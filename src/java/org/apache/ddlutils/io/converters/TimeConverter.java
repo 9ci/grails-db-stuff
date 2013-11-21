@@ -29,7 +29,7 @@ import java.util.regex.PatternSyntaxException;
 import org.apache.ddlutils.DdlUtilsException;
 
 /**
- * Converts between {@link java.sql.Time} and {@link String} using the standard
+ * Converts between {@link java.sql.Time} and {@link java.lang.String} using the standard
  * representation "hh:mm:ss".
  * 
  * @version $Revision: 289996 $

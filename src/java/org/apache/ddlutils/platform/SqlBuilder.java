@@ -422,7 +422,7 @@ public abstract class SqlBuilder
 
     /**
      * Outputs the DDL to create the given temporary table. Per default this is simply
-     * a call to {@link #createTable(org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Table, java.util.Map)}.
+     * a call to {@link #createTable(Database, Table, Map)}.
      * 
      * @param database   The database model
      * @param table      The table
@@ -435,7 +435,7 @@ public abstract class SqlBuilder
 
     /**
      * Outputs the DDL to drop the given temporary table. Per default this is simply
-     * a call to {@link #dropTable(org.apache.ddlutils.model.Table)}.
+     * a call to {@link #dropTable(Table)}.
      * 
      * @param database The database model
      * @param table    The table
@@ -449,7 +449,7 @@ public abstract class SqlBuilder
      * Writes a statement that copies the data from the source to the target table. Note
      * that this copies only those columns that are in both tables.
      * Database-specific implementations might redefine this method though it usually
-     * suffices to redefine the {@link #writeCastExpression(org.apache.ddlutils.model.Column, org.apache.ddlutils.model.Column)} method.
+     * suffices to redefine the {@link #writeCastExpression(Column, Column)} method.
      * 
      * @param sourceTable The source table
      * @param targetTable The target table
@@ -800,7 +800,7 @@ public abstract class SqlBuilder
 
     /**
      * Outputs the DDL to drop the table. Note that this method does not drop
-     * foreign keys to this table. Use {@link #dropTable(org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Table)}
+     * foreign keys to this table. Use {@link #dropTable(Database, Table)}
      * if you want that.
      * 
      * @param table The table to drop

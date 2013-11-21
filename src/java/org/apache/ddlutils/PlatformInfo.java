@@ -1146,7 +1146,7 @@ public class PlatformInfo
     /**
      * Adds a default size for the given jdbc type.
      * 
-     * @param jdbcTypeName The name of the jdbc type, one of the {@link java.sql.Types} constants
+     * @param jdbcTypeName The name of the jdbc type, one of the {@link Types} constants
      * @param defaultSize  The default size
      */
     public void setDefaultSize(String jdbcTypeName, int defaultSize)

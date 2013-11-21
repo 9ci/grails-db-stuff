@@ -44,7 +44,7 @@ import org.apache.ddlutils.platform.sybase.SybaseASE15Platform;
 import org.apache.ddlutils.platform.sybase.SybasePlatform;
 
 /**
- * A factory of {@link Platform} instances based on a case
+ * A factory of {@link org.apache.ddlutils.Platform} instances based on a case
  * insensitive database name. Note that this is a convenience class as the platforms
  * can also simply be created via their constructors.
  * 
@@ -94,7 +94,7 @@ public class PlatformFactory
 
     /**
      * Creates a new platform for the specified database. This is a shortcut method that uses
-     * {@link org.apache.ddlutils.PlatformUtils#determineDatabaseType(String, String)} to determine the parameter
+     * {@link PlatformUtils#determineDatabaseType(String, String)} to determine the parameter
      * for {@link #createNewPlatformInstance(String)}. Note that no database connection is
      * established when using this method.
      * 
@@ -109,9 +109,9 @@ public class PlatformFactory
 
     /**
      * Creates a new platform for the specified database. This is a shortcut method that uses
-     * {@link org.apache.ddlutils.PlatformUtils#determineDatabaseType(javax.sql.DataSource)} to determine the parameter
+     * {@link PlatformUtils#determineDatabaseType(DataSource)} to determine the parameter
      * for {@link #createNewPlatformInstance(String)}. Note that this method sets the data source
-     * at the returned platform instance (method {@link org.apache.ddlutils.Platform#setDataSource(javax.sql.DataSource)}).
+     * at the returned platform instance (method {@link Platform#setDataSource(DataSource)}).
      * 
      * @param dataSource The data source for the database
      * @return The platform or <code>null</code> if the database is not supported
@@ -126,9 +126,9 @@ public class PlatformFactory
 
     /**
      * Creates a new platform for the specified database. This is a shortcut method that uses
-     * {@link org.apache.ddlutils.PlatformUtils#determineDatabaseType(javax.sql.DataSource)} to determine the parameter
+     * {@link PlatformUtils#determineDatabaseType(DataSource)} to determine the parameter
      * for {@link #createNewPlatformInstance(String)}. Note that this method sets the data source
-     * at the returned platform instance (method {@link org.apache.ddlutils.Platform#setDataSource(javax.sql.DataSource)}).
+     * at the returned platform instance (method {@link Platform#setDataSource(DataSource)}).
      * 
      * @param dataSource The data source for the database
      * @param username   The user name to use for connecting to the database
@@ -170,7 +170,7 @@ public class PlatformFactory
      * Registers a new platform.
      * 
      * @param platformName  The platform name
-     * @param platformClass The platform class which must implement the {@link org.apache.ddlutils.Platform} interface
+     * @param platformClass The platform class which must implement the {@link Platform} interface
      */
     public static synchronized void registerPlatform(String platformName, Class platformClass)
     {
@@ -209,7 +209,7 @@ public class PlatformFactory
      * 
      * @param platformMap   The map to add the platform info to 
      * @param platformName  The platform name
-     * @param platformClass The platform class which must implement the {@link org.apache.ddlutils.Platform} interface
+     * @param platformClass The platform class which must implement the {@link Platform} interface
      */
     private static synchronized void addPlatform(Map platformMap, String platformName, Class platformClass)
     {

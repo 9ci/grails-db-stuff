@@ -1221,7 +1221,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * @param currentModel The model to find the table in
      * @param change       The table change
      * @return The table
-     * @throws org.apache.ddlutils.model.ModelException If the table could not be found
+     * @throws ModelException If the table could not be found
      */
     protected Table findChangedTable(Database currentModel, TableChange change) throws ModelException
     {
@@ -1244,7 +1244,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * @param currentModel The model to find the index in
      * @param change       The index change
      * @return The index
-     * @throws org.apache.ddlutils.model.ModelException If the index could not be found
+     * @throws ModelException If the index could not be found
      */
     protected Index findChangedIndex(Database currentModel, IndexChange change) throws ModelException
     {
@@ -1267,7 +1267,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * @param currentModel The model to find the foreign key in
      * @param change       The foreign key change
      * @return The foreign key
-     * @throws org.apache.ddlutils.model.ModelException If the foreign key could not be found
+     * @throws ModelException If the foreign key could not be found
      */
     protected ForeignKey findChangedForeignKey(Database currentModel, ForeignKeyChange change) throws ModelException
     {
@@ -2886,7 +2886,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
 	 * @param sqlIndex  The parameter index
 	 * @param typeCode  The JDBC type code
 	 * @param value     The value
-	 * @throws java.sql.SQLException If an error occurred while setting the parameter value
+	 * @throws SQLException If an error occurred while setting the parameter value
 	 */
 	protected void setStatementParameterValue(PreparedStatement statement, int sqlIndex, int typeCode, Object value) throws SQLException
 	{
@@ -3030,7 +3030,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      *                   <code>columnName</code> is <code>null</code>
 	 * @param jdbcType   The jdbc type to extract
 	 * @return The value
-	 * @throws java.sql.SQLException If an error occurred while accessing the result set
+	 * @throws SQLException If an error occurred while accessing the result set
 	 */
 	protected Object extractColumnValue(ResultSet resultSet, String columnName, int columnIdx, int jdbcType) throws SQLException
 	{

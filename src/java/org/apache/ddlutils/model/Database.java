@@ -541,7 +541,7 @@ public class Database implements Serializable
      * @param caseSensitive   Whether the case of the table names matters; if not, then the regular expression should
      *                        assume that the table names are all-uppercase
      * @return The tables
-     * @throws java.util.regex.PatternSyntaxException If the regular expression is invalid
+     * @throws PatternSyntaxException If the regular expression is invalid
      */
     public Table[] findTables(String tableNameRegExp, boolean caseSensitive) throws PatternSyntaxException
     {
@@ -630,7 +630,7 @@ public class Database implements Serializable
     }
 
     /**
-     * Convenience method that combines {@link #createDynaBeanFor(org.apache.ddlutils.model.Table)} and
+     * Convenience method that combines {@link #createDynaBeanFor(Table)} and
      * {@link #findTable(String, boolean)}.
      * 
      * @param tableName     The name of the table to create the bean for

@@ -191,7 +191,7 @@ public class JdbcModelReader
         // we're also reading the table name so that a model reader impl can filter manually
         result.add(new MetaDataColumnDescriptor("TABLE_NAME",     Types.VARCHAR));
         result.add(new MetaDataColumnDescriptor("COLUMN_NAME",    Types.VARCHAR));
-        result.add(new MetaDataColumnDescriptor("DATA_TYPE",      Types.INTEGER, new Integer(Types.OTHER)));
+        result.add(new MetaDataColumnDescriptor("DATA_TYPE",      Types.INTEGER, new Integer(java.sql.Types.OTHER)));
         result.add(new MetaDataColumnDescriptor("NUM_PREC_RADIX", Types.INTEGER, new Integer(10)));
         result.add(new MetaDataColumnDescriptor("DECIMAL_DIGITS", Types.INTEGER, new Integer(0)));
         result.add(new MetaDataColumnDescriptor("COLUMN_SIZE",    Types.VARCHAR));
@@ -960,7 +960,7 @@ public class JdbcModelReader
 
     /**
      * Converts the JDBC action value (one of the <code>importKey</code> constants in the
-     * {@link java.sql.DatabaseMetaData} class) to a {@link org.apache.ddlutils.model.CascadeActionEnum}.
+     * {@link DatabaseMetaData} class) to a {@link CascadeActionEnum}.
      * 
      * @param jdbcActionValue The jdbc action value
      * @return The enum value
@@ -1091,7 +1091,7 @@ public class JdbcModelReader
 
     /**
      * Helper method that determines the auto increment status for the given columns via the
-     * {@link java.sql.ResultSetMetaData#isAutoIncrement(int)} method.
+     * {@link ResultSetMetaData#isAutoIncrement(int)} method.
      * 
      * @param table          The table
      * @param columnsToCheck The columns to check (e.g. the primary key columns)

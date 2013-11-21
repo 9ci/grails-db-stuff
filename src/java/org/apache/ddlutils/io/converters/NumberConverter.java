@@ -25,7 +25,7 @@ import java.sql.Types;
 import org.apache.commons.beanutils.ConvertUtils;
 
 /**
- * Converts between the various number types (including boolean types) and {@link String}.
+ * Converts between the various number types (including boolean types) and {@link java.lang.String}.
  * 
  * @version $Revision: 289996 $
  */

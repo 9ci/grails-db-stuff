@@ -76,6 +76,9 @@ public class DataToDatabaseSink implements DataSink
     private HashMap _identityMap = new HashMap();
     /** Stores the objects that are waiting for other objects to be inserted. */
     private ArrayList _waitingObjects = new ArrayList();
+    /** Specifies how to load the data. Insert will insert all and error if the row alrady exists.
+        INSERT_NEW will only insert if the row exists */
+    private String _dataLoadType;
 
     /**
      * Creates a new sink instance.
@@ -202,6 +205,27 @@ public class DataToDatabaseSink implements DataSink
     public void setBatchSize(int batchSize)
     {
         _batchSize = batchSize;
+    }
+
+        /**
+     * Specifies how to load the data. Insert will insert all and error if the row alrady exists.
+     * INSERT_NEW will only insert if the row exists
+     * 
+     * @param dataLoadType INSERT or INSERT_NEW
+     */
+    public void setDataLoadType(String dataLoadType)
+    {
+        _dataLoadType = dataLoadType;
+    }
+
+    /**
+     * Returns the batch size override.
+     * 
+     * @return how to load the data
+     */
+    public String getDataLoadType()
+    {
+        return _dataLoadType;
     }
 
     /**
@@ -406,6 +430,12 @@ public class DataToDatabaseSink implements DataSink
      */
     private void insertBeanIntoDatabase(Table table, DynaBean bean) throws DataSinkException
     {
+        if(_dataLoadType == "INSERT_NEW"){
+            boolean rowExists = _platform.exists(_connection, _model, bean);
+            if(rowExists){
+                return;
+            }
+        }
         if (_useBatchMode)
         {
             _batchQueue.add(bean);

@@ -295,7 +295,7 @@ public interface Platform
 
     /**
      * Creates the database specified by the given parameters. Please note that this method does not
-     * use a data source set via {@link #setDataSource(javax.sql.DataSource)} because it is not possible to
+     * use a data source set via {@link #setDataSource(DataSource)} because it is not possible to
      * retrieve the connection information from it without establishing a connection.<br/>
      * The given connection url is the url that you'd use to connect to the already-created
      * database.<br/>
@@ -312,7 +312,7 @@ public interface Platform
 
     /**
      * Drops the database specified by the given parameters. Please note that this method does not
-     * use a data source set via {@link #setDataSource(javax.sql.DataSource)} because it is not possible to
+     * use a data source set via {@link #setDataSource(DataSource)} because it is not possible to
      * retrieve the connection information from it without establishing a connection.
      * 
      * @param jdbcDriverClassName The jdbc driver class name
@@ -328,7 +328,7 @@ public interface Platform
      * @param model           The database model
      * @param dropTablesFirst Whether to drop the tables prior to creating them (anew)
      * @param continueOnError Whether to continue executing the sql commands when an error occurred
-     * @deprecated Use {@link #createModel(org.apache.ddlutils.model.Database, boolean, boolean)} instead.
+     * @deprecated Use {@link #createModel(Database, boolean, boolean)} instead.
      */
     public void createTables(Database model, boolean dropTablesFirst, boolean continueOnError) throws DatabaseOperationException;
 
@@ -339,7 +339,7 @@ public interface Platform
      * @param model           The database model
      * @param dropTablesFirst Whether to drop the tables prior to creating them (anew)
      * @param continueOnError Whether to continue executing the sql commands when an error occurred
-     * @deprecated Use {@link #createModel(java.sql.Connection, org.apache.ddlutils.model.Database, boolean, boolean)} instead.
+     * @deprecated Use {@link #createModel(Connection, Database, boolean, boolean)} instead.
      */
     public void createTables(Connection connection, Database model, boolean dropTablesFirst, boolean continueOnError) throws DatabaseOperationException;
 
@@ -350,7 +350,7 @@ public interface Platform
      * @param params          The parameters used in the creation
      * @param dropTablesFirst Whether to drop the tables prior to creating them (anew)
      * @param continueOnError Whether to continue executing the sql commands when an error occurred
-     * @deprecated Use {@link #createModel(org.apache.ddlutils.model.Database, org.apache.ddlutils.platform.CreationParameters, boolean, boolean)} instead.
+     * @deprecated Use {@link #createModel(Database, CreationParameters, boolean, boolean)} instead.
      */
     public void createTables(Database model, CreationParameters params, boolean dropTablesFirst, boolean continueOnError) throws DatabaseOperationException;
 
@@ -362,7 +362,7 @@ public interface Platform
      * @param params          The parameters used in the creation
      * @param dropTablesFirst Whether to drop the tables prior to creating them (anew)
      * @param continueOnError Whether to continue executing the sql commands when an error occurred
-     * @deprecated Use {@link #createModel(java.sql.Connection, org.apache.ddlutils.model.Database, org.apache.ddlutils.platform.CreationParameters, boolean, boolean)} instead.
+     * @deprecated Use {@link #createModel(Connection, Database, CreationParameters, boolean, boolean)} instead.
      */
     public void createTables(Connection connection, Database model, CreationParameters params, boolean dropTablesFirst, boolean continueOnError) throws DatabaseOperationException;
 
@@ -373,7 +373,7 @@ public interface Platform
      * @param dropTablesFirst Whether to drop the tables prior to creating them (anew)
      * @param continueOnError Whether to continue executing the sql commands when an error occurred
      * @return The SQL statements
-     * @deprecated Use {@link #getCreateModelSql(org.apache.ddlutils.model.Database, boolean, boolean)} instead.
+     * @deprecated Use {@link #getCreateModelSql(Database, boolean, boolean)} instead.
      */
     public String getCreateTablesSql(Database model, boolean dropTablesFirst, boolean continueOnError);
 
@@ -385,7 +385,7 @@ public interface Platform
      * @param dropTablesFirst Whether to drop the tables prior to creating them (anew)
      * @param continueOnError Whether to continue executing the sql commands when an error occurred
      * @return The SQL statements
-     * @deprecated Use {@link #getCreateModelSql(org.apache.ddlutils.model.Database, org.apache.ddlutils.platform.CreationParameters, boolean, boolean)} instead.
+     * @deprecated Use {@link #getCreateModelSql(Database, CreationParameters, boolean, boolean)} instead.
      */
     public String getCreateTablesSql(Database model, CreationParameters params, boolean dropTablesFirst, boolean continueOnError);
 
@@ -465,7 +465,7 @@ public interface Platform
      *
      * @param desiredDb       The desired database schema
      * @param continueOnError Whether to continue with the next sql statement when an error occurred
-     * @deprecated Use {@link #alterModel(org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database, boolean)} together with
+     * @deprecated Use {@link #alterModel(Database, Database, boolean)} together with
      *             {@link #readModelFromDatabase(String)} instead.
      */
     public void alterTables(Database desiredDb, boolean continueOnError) throws DatabaseOperationException;
@@ -476,7 +476,7 @@ public interface Platform
      * @param desiredDb       The desired database schema
      * @param params          The parameters used in the creation
      * @param continueOnError Whether to continue with the next sql statement when an error occurred
-     * @deprecated Use {@link #alterModel(org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database, org.apache.ddlutils.platform.CreationParameters, boolean)} together with
+     * @deprecated Use {@link #alterModel(Database, Database, CreationParameters, boolean)} together with
      *             {@link #readModelFromDatabase(String)} instead.
      */
     public void alterTables(Database desiredDb, CreationParameters params, boolean continueOnError) throws DatabaseOperationException;
@@ -492,7 +492,7 @@ public interface Platform
      *                        use <code>null</code> or an empty array for the platform-specific default value
      * @param desiredDb       The desired database schema
      * @param continueOnError Whether to continue with the next sql statement when an error occurred
-     * @deprecated Use {@link #alterModel(org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database, boolean)} together with
+     * @deprecated Use {@link #alterModel(Database, Database, boolean)} together with
      *             {@link #readModelFromDatabase(String, String, String, String[])} instead.
      */
     public void alterTables(String catalog, String schema, String[] tableTypes, Database desiredDb, boolean continueOnError) throws DatabaseOperationException;
@@ -509,7 +509,7 @@ public interface Platform
      * @param desiredDb       The desired database schema
      * @param params          The parameters used in the creation
      * @param continueOnError Whether to continue with the next sql statement when an error occurred
-     * @deprecated Use {@link #alterModel(org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database, org.apache.ddlutils.platform.CreationParameters, boolean)} together with
+     * @deprecated Use {@link #alterModel(Database, Database, CreationParameters, boolean)} together with
      *             {@link #readModelFromDatabase(String, String, String, String[])} instead.
      */
     public void alterTables(String catalog, String schema, String[] tableTypes, Database desiredDb, CreationParameters params, boolean continueOnError) throws DatabaseOperationException;
@@ -520,8 +520,8 @@ public interface Platform
      * @param connection      A connection to the existing database that shall be modified
      * @param desiredDb       The desired database schema
      * @param continueOnError Whether to continue with the next sql statement when an error occurred
-     * @deprecated Use {@link #alterModel(java.sql.Connection, org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database, boolean)} together with
-     *             {@link #readModelFromDatabase(java.sql.Connection, String)} instead.
+     * @deprecated Use {@link #alterModel(Connection, Database, Database, boolean)} together with
+     *             {@link #readModelFromDatabase(Connection, String)} instead.
      */
     public void alterTables(Connection connection, Database desiredDb, boolean continueOnError) throws DatabaseOperationException;
 
@@ -532,8 +532,8 @@ public interface Platform
      * @param desiredDb       The desired database schema
      * @param params          The parameters used in the creation
      * @param continueOnError Whether to continue with the next sql statement when an error occurred
-     * @deprecated Use {@link #alterModel(java.sql.Connection, org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database, org.apache.ddlutils.platform.CreationParameters, boolean)} together with
-     *             {@link #readModelFromDatabase(java.sql.Connection, String)} instead.
+     * @deprecated Use {@link #alterModel(Connection, Database, Database, CreationParameters, boolean)} together with
+     *             {@link #readModelFromDatabase(Connection, String)} instead.
      */
     public void alterTables(Connection connection, Database desiredDb, CreationParameters params, boolean continueOnError) throws DatabaseOperationException;
 
@@ -549,8 +549,8 @@ public interface Platform
      *                        use <code>null</code> or an empty array for the platform-specific default value
      * @param desiredDb       The desired database schema
      * @param continueOnError Whether to continue with the next sql statement when an error occurred
-     * @deprecated Use {@link #alterModel(java.sql.Connection, org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database, boolean)} together with
-     *             {@link #readModelFromDatabase(java.sql.Connection, String, String, String, String[])} instead.
+     * @deprecated Use {@link #alterModel(Connection, Database, Database, boolean)} together with
+     *             {@link #readModelFromDatabase(Connection, String, String, String, String[])} instead.
      */
     public void alterTables(Connection connection, String catalog, String schema, String[] tableTypes, Database desiredDb, boolean continueOnError) throws DatabaseOperationException;
 
@@ -567,8 +567,8 @@ public interface Platform
      * @param desiredDb       The desired database schema
      * @param params          The parameters used in the creation
      * @param continueOnError Whether to continue with the next sql statement when an error occurred
-     * @deprecated Use {@link #alterModel(java.sql.Connection, org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database, org.apache.ddlutils.platform.CreationParameters, boolean)} together with
-     *             {@link #readModelFromDatabase(java.sql.Connection, String, String, String, String[])} instead.
+     * @deprecated Use {@link #alterModel(Connection, Database, Database, CreationParameters, boolean)} together with
+     *             {@link #readModelFromDatabase(Connection, String, String, String, String[])} instead.
      */
     public void alterTables(Connection connection, String catalog, String schema, String[] tableTypes, Database desiredDb, CreationParameters params, boolean continueOnError) throws DatabaseOperationException;
 
@@ -577,7 +577,7 @@ public interface Platform
      *
      * @param desiredDb The desired database schema
      * @return The SQL statements
-     * @deprecated Use {@link #getAlterModelSql(org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database)} together with
+     * @deprecated Use {@link #getAlterModelSql(Database, Database)} together with
      *             {@link #readModelFromDatabase(String)} instead.
      */
     public String getAlterTablesSql(Database desiredDb) throws DatabaseOperationException;
@@ -588,7 +588,7 @@ public interface Platform
      * @param desiredDb The desired database schema
      * @param params    The parameters used in the creation
      * @return The SQL statements
-     * @deprecated Use {@link #getAlterModelSql(org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database, org.apache.ddlutils.platform.CreationParameters)} together with
+     * @deprecated Use {@link #getAlterModelSql(Database, Database, CreationParameters)} together with
      *             {@link #readModelFromDatabase(String)} instead.
      */
     public String getAlterTablesSql(Database desiredDb, CreationParameters params) throws DatabaseOperationException;
@@ -604,7 +604,7 @@ public interface Platform
      *                   use <code>null</code> or an empty array for the platform-specific default value
      * @param desiredDb  The desired database schema
      * @return The SQL statements
-     * @deprecated Use {@link #getAlterModelSql(org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database)} together with
+     * @deprecated Use {@link #getAlterModelSql(Database, Database)} together with
      *             {@link #readModelFromDatabase(String, String, String, String[])} instead.
      */
     public String getAlterTablesSql(String catalog, String schema, String[] tableTypes, Database desiredDb) throws DatabaseOperationException;
@@ -621,7 +621,7 @@ public interface Platform
      * @param desiredDb  The desired database schema
      * @param params     The parameters used in the creation
      * @return The SQL statements
-     * @deprecated Use {@link #getAlterModelSql(org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database, org.apache.ddlutils.platform.CreationParameters)} together with
+     * @deprecated Use {@link #getAlterModelSql(Database, Database, CreationParameters)} together with
      *             {@link #readModelFromDatabase(String, String, String, String[])} instead.
      */
     public String getAlterTablesSql(String catalog, String schema, String[] tableTypes, Database desiredDb, CreationParameters params) throws DatabaseOperationException;
@@ -632,8 +632,8 @@ public interface Platform
      * @param connection A connection to the existing database that shall be modified
      * @param desiredDb  The desired database schema
      * @return The SQL statements
-     * @deprecated Use {@link #getAlterModelSql(org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database)} together with
-     *             {@link #readModelFromDatabase(java.sql.Connection, String)} instead.
+     * @deprecated Use {@link #getAlterModelSql(Database, Database)} together with
+     *             {@link #readModelFromDatabase(Connection, String)} instead.
      */
     public String getAlterTablesSql(Connection connection, Database desiredDb) throws DatabaseOperationException;
 
@@ -644,8 +644,8 @@ public interface Platform
      * @param desiredDb  The desired database schema
      * @param params     The parameters used in the creation
      * @return The SQL statements
-     * @deprecated Use {@link #getAlterModelSql(org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database, org.apache.ddlutils.platform.CreationParameters)} together with
-     *             {@link #readModelFromDatabase(java.sql.Connection, String)} instead.
+     * @deprecated Use {@link #getAlterModelSql(Database, Database, CreationParameters)} together with
+     *             {@link #readModelFromDatabase(Connection, String)} instead.
      */
     public String getAlterTablesSql(Connection connection, Database desiredDb, CreationParameters params) throws DatabaseOperationException;
 
@@ -661,8 +661,8 @@ public interface Platform
      *                   use <code>null</code> or an empty array for the platform-specific default value
      * @param desiredDb  The desired database schema
      * @return The SQL statements
-     * @deprecated Use {@link #getAlterModelSql(org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database)} together with
-     *             {@link #readModelFromDatabase(java.sql.Connection, String, String, String, String[])} instead.
+     * @deprecated Use {@link #getAlterModelSql(Database, Database)} together with
+     *             {@link #readModelFromDatabase(Connection, String, String, String, String[])} instead.
      */
     public String getAlterTablesSql(Connection connection, String catalog, String schema, String[] tableTypes, Database desiredDb) throws DatabaseOperationException;
 
@@ -679,8 +679,8 @@ public interface Platform
      * @param desiredDb  The desired database schema
      * @param params     The parameters used in the creation
      * @return The SQL statements
-     * @deprecated Use {@link #getAlterModelSql(org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database, org.apache.ddlutils.platform.CreationParameters)} together with
-     *             {@link #readModelFromDatabase(java.sql.Connection, String, String, String, String[])} instead.
+     * @deprecated Use {@link #getAlterModelSql(Database, Database, CreationParameters)} together with
+     *             {@link #readModelFromDatabase(Connection, String, String, String, String[])} instead.
      */
     public String getAlterTablesSql(Connection connection, String catalog, String schema, String[] tableTypes, Database desiredDb, CreationParameters params) throws DatabaseOperationException;
 
@@ -778,7 +778,7 @@ public interface Platform
      * @param model           The database model
      * @param continueOnError Whether to continue executing the sql commands when an error occurred
      * @return The SQL statements
-     * @deprecated Use {@link #getDropModelSql(org.apache.ddlutils.model.Database)} instead.
+     * @deprecated Use {@link #getDropModelSql(Database)} instead.
      */
     public String getDropTablesSql(Database model, boolean continueOnError);
 
@@ -787,7 +787,7 @@ public interface Platform
      * 
      * @param model           The database model
      * @param continueOnError Whether to continue executing the sql commands when an error occurred
-     * @deprecated Use {@link #dropModel(org.apache.ddlutils.model.Database, boolean)} instead.
+     * @deprecated Use {@link #dropModel(Database, boolean)} instead.
      */
     public void dropTables(Database model, boolean continueOnError) throws DatabaseOperationException;
 
@@ -797,7 +797,7 @@ public interface Platform
      * @param connection      The connection to the database
      * @param model           The database model
      * @param continueOnError Whether to continue executing the sql commands when an error occurred
-     * @deprecated Use {@link #dropModel(java.sql.Connection, org.apache.ddlutils.model.Database, boolean)} instead.
+     * @deprecated Use {@link #dropModel(Connection, Database, boolean)} instead.
      */
     public void dropTables(Connection connection, Database model, boolean continueOnError) throws DatabaseOperationException; 
 
@@ -868,7 +868,7 @@ public interface Platform
 
     /**
      * Queries for a list of dyna beans representing rows of the given query.
-     * In contrast to the {@link #query(org.apache.ddlutils.model.Database, String)} method all beans will be
+     * In contrast to the {@link #query(Database, String)} method all beans will be
      * materialized and the connection will be closed before returning the beans. 
      * 
      * @param model The database model to use
@@ -879,7 +879,7 @@ public interface Platform
 
     /**
      * Queries for a list of dyna beans representing rows of the given query.
-     * In contrast to the {@link #query(org.apache.ddlutils.model.Database, String, java.util.Collection)} method
+     * In contrast to the {@link #query(Database, String, Collection)} method
      * all beans will be materialized and the connection will be closed before
      * returning the beans. 
      * 
@@ -892,7 +892,7 @@ public interface Platform
 
     /**
      * Queries for a list of dyna beans representing rows of the given query.
-     * In contrast to the {@link #query(org.apache.ddlutils.model.Database, String)} method all beans will be
+     * In contrast to the {@link #query(Database, String)} method all beans will be
      * materialized and the connection will be closed before returning the beans. 
      * 
      * @param model      The database model to use
@@ -904,7 +904,7 @@ public interface Platform
 
     /**
      * Queries for a list of dyna beans representing rows of the given query.
-     * In contrast to the {@link #query(org.apache.ddlutils.model.Database, String, java.util.Collection)} method
+     * In contrast to the {@link #query(Database, String, Collection)} method
      * all beans will be materialized and the connection will be closed before
      * returning the beans. 
      * 
@@ -918,7 +918,7 @@ public interface Platform
 
     /**
      * Queries for a list of dyna beans representing rows of the given query.
-     * In contrast to the {@link #query(org.apache.ddlutils.model.Database, String)} method all beans will be
+     * In contrast to the {@link #query(Database, String)} method all beans will be
      * materialized and the connection will be closed before returning the beans.
      * Also, the two int parameters specify which rows of the result set to use.
      * If there are more rows than desired, they will be ignored (and not read
@@ -934,7 +934,7 @@ public interface Platform
 
     /**
      * Queries for a list of dyna beans representing rows of the given query.
-     * In contrast to the {@link #query(org.apache.ddlutils.model.Database, String, java.util.Collection)} method all
+     * In contrast to the {@link #query(Database, String, Collection)} method all
      * beans will be materialized and the connection will be closed before returning
      * the beans. Also, the two int parameters specify which rows of the result set
      * to use. If there are more rows than desired, they will be ignored (and not
@@ -951,7 +951,7 @@ public interface Platform
 
     /**
      * Queries for a list of dyna beans representing rows of the given query.
-     * In contrast to the {@link #query(org.apache.ddlutils.model.Database, String, org.apache.ddlutils.model.Table[])} method all
+     * In contrast to the {@link #query(Database, String, Table[])} method all
      * beans will be materialized and the connection will be closed before
      * returning the beans. Also, the two int parameters specify which rows of
      * the result set to use. If there are more rows than desired, they will be
@@ -968,7 +968,7 @@ public interface Platform
 
     /**
      * Queries for a list of dyna beans representing rows of the given query.
-     * In contrast to the {@link #query(org.apache.ddlutils.model.Database, String, java.util.Collection, org.apache.ddlutils.model.Table[])}
+     * In contrast to the {@link #query(Database, String, Collection, Table[])}
      * method all beans will be materialized and the connection will be closed
      * before returning the beans. Also, the two int parameters specify which
      * rows of the result set to use. If there are more rows than desired, they

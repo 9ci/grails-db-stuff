@@ -137,11 +137,11 @@ public class PrettyPrintingXmlWriter
     }
 
     /**
-     * Rethrows the given exception, wrapped in a {@link org.apache.ddlutils.io.DdlUtilsXMLException}. This
+     * Rethrows the given exception, wrapped in a {@link DdlUtilsXMLException}. This
      * method allows subclasses to throw their own subclasses of this exception.
      * 
      * @param baseEx The original exception
-     * @throws org.apache.ddlutils.io.DdlUtilsXMLException The wrapped exception
+     * @throws DdlUtilsXMLException The wrapped exception
      */
     protected void throwException(Exception baseEx) throws DdlUtilsXMLException
     {

@@ -124,7 +124,7 @@ public class ForeignKey implements Serializable
     /**
      * Sets the name of the foreign table. Please note that you should not use this method
      * when manually constructing or manipulating the database model. Rather utilize the
-     * {@link #setForeignTable(org.apache.ddlutils.model.Table)} method.
+     * {@link #setForeignTable(Table)} method.
      * 
      * @param foreignTableName The table name
      */

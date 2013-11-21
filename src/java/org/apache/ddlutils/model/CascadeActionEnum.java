@@ -27,7 +27,7 @@ import org.apache.commons.lang.enums.ValuedEnum;
 
 /**
  * Represents the different cascade actions for the <code>onDelete</code> and
- * <code>onUpdate</code> properties of {@link org.apache.ddlutils.model.ForeignKey}.
+ * <code>onUpdate</code> properties of {@link ForeignKey}.
  * 
  * @version $Revision: $
  */

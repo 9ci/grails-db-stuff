@@ -37,7 +37,7 @@ public interface TableDefinitionChangesPredicate
      * @param intermediateTable The current table object which has certain non-table-definition
      *                          changes already applied (those that would come before the give
      *                          list of changes in the result of
-     *                          {@link org.apache.ddlutils.alteration.ModelComparator#compare(org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database)}
+     *                          {@link ModelComparator#compare(org.apache.ddlutils.model.Database, org.apache.ddlutils.model.Database)}
      * @param changes The non-empty list of changes
      * @return <code>true</code> if the current plaform supports them
      */

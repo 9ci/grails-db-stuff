@@ -132,7 +132,7 @@ public class DumpMetadataTask extends Task
     }
 
     /**
-     * Specifies the table to be processed. For details see {@link java.sql.DatabaseMetaData#getTables(String, String, String, String[])}.
+     * Specifies the table to be processed. For details see {@link DatabaseMetaData#getTables(String, String, String, String[])}.
      *
      * @param tablePattern The table pattern
      * @ant.not-required By default, all tables are read (value <code>%</code>).
@@ -143,7 +143,7 @@ public class DumpMetadataTask extends Task
     }
 
     /**
-     * Specifies the procedures to be processed. For details and typical table types see {@link java.sql.DatabaseMetaData#getProcedures(String, String, String)}.
+     * Specifies the procedures to be processed. For details and typical table types see {@link DatabaseMetaData#getProcedures(String, String, String)}.
      *
      * @param procedurePattern The procedure pattern
      * @ant.not-required By default, all procedures are read (value <code>%</code>).
@@ -154,7 +154,7 @@ public class DumpMetadataTask extends Task
     }
 
     /**
-     * Specifies the columns to be processed. For details and typical table types see {@link java.sql.DatabaseMetaData#getColumns(String, String, String, String)}.
+     * Specifies the columns to be processed. For details and typical table types see {@link DatabaseMetaData#getColumns(String, String, String, String)}.
      *
      * @param columnPattern The column pattern
      * @ant.not-required By default, all columns are read (value <code>%</code>).
@@ -165,7 +165,7 @@ public class DumpMetadataTask extends Task
     }
 
     /**
-     * Specifies the table types to be processed. For details and typical table types see {@link java.sql.DatabaseMetaData#getTables(String, String, String, String[])}.
+     * Specifies the table types to be processed. For details and typical table types see {@link DatabaseMetaData#getTables(String, String, String, String[])}.
      *
      * @param tableTypes The table types to read
      * @ant.not-required By default, all types of tables are read.
