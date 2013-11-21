@@ -18,7 +18,7 @@ package greenbill.dbstuff
 import org.codehaus.groovy.grails.commons.ApplicationHolder
 import org.apache.ddlutils.PlatformFactory;
 
-public class DbCreate {
+public class CreateDb {
 
 	def dataSource
 	def platform
@@ -37,8 +37,11 @@ public class DbCreate {
 		}else if (platformName.contains("mysql")){
 			dropMySql(dbname)
 			createMySql(dbname)
-		}else if (platformName.contains("HsqlDb")){
-			dropHsql(dbname) 
+		}else if (platformName.contains("hsqldb")){
+			dropHsql(dbname)
+        } else if (platformName.contains("oracle")){
+            dropTablesOracle(dsConfig.dataSource.driverClassName,dsConfig.dataLoad.createUrl,
+                    dsConfig.dataSource.username,dsConfig.dataSource.password)
 		}else throw new IllegalArgumentException("Drop and Create not supported for this databse yet")
 	}
 	def create(dbname,dsConfig) {
@@ -65,7 +68,7 @@ public class DbCreate {
 				END
 		"""
 		//println sql
-		fireMsSql(dbname,driverClassName,url,username,password,sql)
+        fireSqlAnt(driverClassName,url,username,password,sql)
 	}
 	
 	def dropMySql(dbname) {
@@ -75,30 +78,20 @@ public class DbCreate {
 		""")
 	}
 
-    def dropOracle(dbname) {
-        runSql(	"""
-				BEGIN
-                    EXECUTE IMMEDIATE 'DROP USER ${dbname}';
-                EXCEPTION
-                    WHEN OTHERS THEN
-                        IF SQLCODE != -1918 THEN
-                            RAISE;
-                        END IF;
-                END;
-		""")
-    }
-
-    def dropTableOracle(tblname) {
-        runSql("""
+    def dropTablesOracle(driverClassName,url,username,password) {
+        def sql = """
                 BEGIN
-                    EXECUTE IMMEDIATE 'DROP TABLE ${tblname}';
-                EXCEPTION
-                    WHEN OTHERS THEN
-                        IF SQLCODE != -942 THEN
-                            RAISE;
-                        END IF;
+                  FOR i IN (SELECT us.sequence_name
+                              FROM USER_SEQUENCES us) LOOP
+                    EXECUTE IMMEDIATE 'drop sequence '|| i.sequence_name ||'';
+                  END LOOP;
+                  FOR i IN (SELECT ut.table_name
+                              FROM USER_TABLES ut) LOOP
+                    EXECUTE IMMEDIATE 'drop table '|| i.table_name ||' CASCADE CONSTRAINTS ';
+                  END LOOP;
                 END;
-        """)
+        """
+        fireSqlAnt(driverClassName,url,username,password,sql)
     }
 
 	def dropHsql(dbname) {
@@ -120,40 +113,20 @@ public class DbCreate {
 			alter database ${dbname} set recovery simple, auto_shrink on;
 			END
 			"""
-		//println sql
-		fireMsSql(dbname,driverClassName,url,username,password,sql)
+        fireSqlAnt(driverClassName,url,username,password,sql)
 	}    
 
 	def createMySql(dbname) {
 		runSql("create database IF NOT EXISTS ${dbname};")
 	
 	}
-    
-    def createOracle(dbname){
-        runSql("""
-            -- USER SQL
-                CREATE USER ${dbname} IDENTIFIED BY ${dbname} ;
-    
-            -- SYSTEM PRIVILEGES
-    
-            -- QUOTAS
-    
-        """)
-    }
 
 	def runSql(sql) {
-		//try {
             platform = PlatformFactory.createNewPlatformInstance(dataSource)
-			println sql
 			platform.evaluateBatch(sql,false)
-			//def db = new Sql(dataSource)
-		   	//db.execute(sql)
-		//} catch(Exception e){
-		//	e.printStackTrace()
-		//}
 	}
 	
-	def fireMsSql(dbname,driverClassName,url,username,password,sql) {
+	def fireSqlAnt(driverClassName,url,username,password,sql) {
 		def ant = new AntBuilder()
 		ant.sql(print:true,onerror:"continue", autocommit:true, keepformat:true, delimitertype:"row",
 			driver:"${driverClassName}",

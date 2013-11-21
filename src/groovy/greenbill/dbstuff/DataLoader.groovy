@@ -41,7 +41,7 @@ public class DataLoader {
         def sarray = appCtx.getResources(path).collect{it.inputStream} as InputStream[]
 
 		try{
-			//dataio.dataLoadType="INSERT_NEW"
+			dataio.dataLoadType="INSERT_NEW"
             if(platform.name != "Oracle")  {
                 dataio.writeDataToDatabase(platform,sarray)	//methods insert_new,insert_update
             } else {

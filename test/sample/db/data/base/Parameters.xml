@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dataset>
-	<parameters OID="1" Value="true" Version="0"  description="Hides the batch ID column." ValueType="0" Variable="hideBatchID" />
-	<parameters OID="8" Value="1200" Version="0"  description="Maximum number of rows to return without warning." ValueType="0" Variable="maxReturnRows" EditedBy="0"/>
-	<parameters OID="12" Value="1" Version="0"  description="Can delete a note" ValueType="0" Variable="canDeleteNotes" EditedBy="0"/>
-</dataset>

@@ -1,7 +1,5 @@
 package greenbill.dbstuff
 
-import groovy.sql.Sql
-import java.sql.SQLException
 import org.springframework.jdbc.datasource.DriverManagerDataSource
 import grails.test.*
 import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
@@ -12,7 +10,7 @@ class T01_DbCreateTests extends GrailsUnitTestCase {
 	boolean transactional = false
     protected void setUp() {
         super.setUp()
-		dbc = new DbCreate()
+		dbc = new CreateDb()
 
     }
 
