@@ -1,0 +1,43 @@
+version = '0.4'
+
+description = """\
+ This script is intended to run all the test, both on the plugin and the sample project in test/sample
+ Make sure you have a working DataSource.groovy for each database on both places before running this script
+"""
+
+//De fault tasks to run
+defaultTasks 'testPlugin', 'testSampleAppMySql', 'testSampleAppMsSql', 'testSampleAppOracle'
+
+
+//gradlew tasks
+
+task wrapper( type: Wrapper ) {
+    gradleVersion = '1.8'
+}
+
+// execute the tests
+task testPlugin(type: Exec) {
+    executable 'grails'
+    args 'test-app'
+}
+
+task testSampleAppMySql(type: Exec) {
+
+    executable 'grails'
+    args '-DBMS=my test db-create clean --non-interactive=y'
+    workingDir './test/sample'
+}
+
+task testSampleAppMsSql(type: Exec) {
+
+    executable 'grails'
+    args '-DBMS=ms test db-create clean --non-interactive=y'
+    workingDir './test/sample'
+}
+
+task testSampleAppOracle(type: Exec) {
+
+    executable 'grails'
+    args '-DBMS=or test db-create clean --non-interactive=y'
+    workingDir './test/sample'
+}

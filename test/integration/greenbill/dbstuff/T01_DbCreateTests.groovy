@@ -71,25 +71,15 @@ class T01_DbCreateTests extends GrailsUnitTestCase {
     }
 
     // Oracle
-//
-//    def setupCreateDataSourceOracle(){
-//        def username = "system"
-//        def password = "oracle"
-//        def url = CH.config.dataLoadOracle.createUrl
-//        def driverClassName = "net.sourceforge.jtds.jdbc.Driver"
-//        return new DriverManagerDataSource(driverClassName,url,username,password)
-//    }
-//
-//    void testDropMsSqlOracle() {
-//        dbc.dataSource=setupCreateDataSourceOracle()
-//        assertEquals("Oracle",CH.config.dataLoadOracle.platform)
-//        dbc.dropOracle(CH.config.dataLoadOracle.createDbName)
-//    }
-//
-//    void testCreateMsSqlOracle() {
-//        dbc.dataSource=setupCreateDataSourceOracle()
-//        assertEquals("Oracle",CH.config.dataLoadOracle.platform)
-//        dbc.createOracle(CH.config.dataLoadOracle.createDbName)
-//    }
+
+    void testDropOracle() {
+        def username = "dbstufftest"
+        def password = "oracle"
+        def url = CH.config.dataLoadOracle.createUrl + ":" + CH.config.dataLoadOracle.createDbName
+        def driverClassName = "oracle.jdbc.OracleDriver"
+        dbc.dataSource = new DriverManagerDataSource(driverClassName,url,username,password)
+        assertEquals("Oracle10",CH.config.dataLoadOracle.platform)
+        dbc.dropTablesOracle(driverClassName,url, username, password)
+    }
 
 }

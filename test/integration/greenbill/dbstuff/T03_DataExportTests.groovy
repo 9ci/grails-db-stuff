@@ -11,10 +11,12 @@ class T03_DataExportTests extends GrailsUnitTestCase {
     def de
     boolean transactional = false
     def outPath
+
+
     protected void setUp() {
         super.setUp()
         de = new DataExport()
-       outPath ="/home/holger/9ci/target/"
+       outPath ="sql/data/out/"
     }
 
     protected void tearDown() {
