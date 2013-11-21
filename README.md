@@ -1,5 +1,4 @@
 
-
 Summary
 =======
 Description
@@ -32,7 +31,7 @@ grails install-plugin db-stuff
 ### Setting up DataSource.groovy
 example:
 
-```Groovy
+```
 dataLoad{
    createUrl = "jdbc:mysql://localhost/"
    createDbName = "greenbill" //name of the database to create
