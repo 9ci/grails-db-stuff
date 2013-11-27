@@ -89,6 +89,10 @@ public class CreateDb {
                               FROM USER_TABLES ut) LOOP
                     EXECUTE IMMEDIATE 'drop table '|| i.table_name ||' CASCADE CONSTRAINTS ';
                   END LOOP;
+                  FOR i IN (SELECT uv.view_name
+                              FROM USER_VIEWS uv) LOOP
+                    EXECUTE IMMEDIATE 'drop view '|| i.view_name ||' CASCADE CONSTRAINTS ';
+                  END LOOP;
                 END;
         """
         fireSqlAnt(driverClassName,url,username,password,sql)
