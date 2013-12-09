@@ -10,7 +10,8 @@ class DbStuffGrailsPlugin {
     def pluginExcludes = ['grails-app/views/error.gsp',
 		'grails-app/conf/DataSource.groovy','db/*',
 		'lib/jtds-1.2.2.jar','grails-app/domain/Test*',
-		'lib/mysql-connector-java-5.1.6-bin.jar']
+		'lib/mysql-connector-java-5.1.6-bin.jar',
+		'lib/ojdbc7.jar']
 
 	  def author = "Joshua Burnett"
 	  def authorEmail = "joshua at 9ci com"
