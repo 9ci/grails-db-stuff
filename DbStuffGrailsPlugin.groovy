@@ -2,9 +2,9 @@ import greenbill.dataloader.*
 
 class DbStuffGrailsPlugin {
     // the plugin version
-    def version = "0.4.2"
-    def grailsVersion = "1.3 > *"
-	 def dependsOn = [:] 
+    def version = "0.5.0"
+    def grailsVersion = "2.4.4 > *"
+	 def dependsOn = [:]
 
     // resources that are excluded from plugin packaging
     def pluginExcludes = ['grails-app/views/error.gsp',
@@ -17,16 +17,16 @@ class DbStuffGrailsPlugin {
 	  def authorEmail = "joshua at 9ci com"
 	  def title = "db schema managment and data import/export. Generate generic schema files and import or export base/seed/test data into your database."
 	  def description = '''\
-		Based on DdlUtils from the Apache DB Project http://db.apache.org. 
-		Keeps the schema in a generic xml file that can then be used to creates the db schema in any of the 
+		Based on DdlUtils from the Apache DB Project http://db.apache.org.
+		Keeps the schema in a generic xml file that can then be used to creates the db schema in any of the
 		supported databases. Data can also be extrernalized in files and then loaded via a grails script or at application startup.
 		Load base/seed data into you database. Store/export the data in xml and this will load the database with your applications base records
 		This can and is used for integration testing.
-		This is also used for populating a databse with its neccesary records to do an initial install. 
+		This is also used for populating a databse with its neccesary records to do an initial install.
 		We use it to load tables like configuration params, ACL, acegi requestmaps etc..
 		Works with Hsqldb,MsSql,MySql,Oracle,db2 and others that DdlUtils supports
 	'''
-	
+
     // URL to the plugin's documentation, I'm still trying to figure out how to create thisxx
     def documentation = "http://grails.org/DbStuff+Plugin"
 
@@ -35,9 +35,9 @@ class DbStuffGrailsPlugin {
         			if(dataLoad.loadType?.contains("create")){
         				def dbcreate = new DbCreate()
         				dbcreate.dataSource = applicationContext.getBean('dataSource')
-        				if(dataLoad.loadType == "drop-create") 
+        				if(dataLoad.loadType == "drop-create")
         					dbcreate.dropAndCreate()
-        				
+
         				dl.load(seedFiles,loadType)
         			}
         		}*/
@@ -53,9 +53,9 @@ class DbStuffGrailsPlugin {
 			if(dataLoad.loadType?.contains("create")){
 				def dbcreate = new DbCreate()
 				dbcreate.dataSource = applicationContext.getBean('dataSource')
-				if(dataLoad.loadType == "drop-create") 
+				if(dataLoad.loadType == "drop-create")
 					dbcreate.dropAndCreate()
-				
+
 				dl.load(seedFiles,loadType)
 			}
 			if(dataLoad.seedFiles){
