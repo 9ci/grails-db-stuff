@@ -17,7 +17,6 @@ package greenbill.dbstuff
 
 import org.apache.ddlutils.platform.CreationParameters
 import org.apache.ddlutils.platform.oracle.Oracle8Platform
-import org.codehaus.groovy.grails.commons.ApplicationHolder
 import org.apache.ddlutils.io.DatabaseDataIO
 import org.apache.ddlutils.PlatformFactory;
 
@@ -34,7 +33,7 @@ public class DataLoader {
 
 	def load(path,operation) {
 
-        def appCtx = ApplicationHolder.application.parentContext
+        def appCtx = grailsApp.parentContext
 
         def platform = PlatformFactory.createNewPlatformInstance(dataSource)
 
@@ -61,7 +60,7 @@ public class DataLoader {
 	}
 	
 	def loadSchema(path,alterDb) {
-		def appCtx = ApplicationHolder.application.parentContext
+		def appCtx = grailsApp.parentContext
 
         def platform = PlatformFactory.createNewPlatformInstance(dataSource)
 

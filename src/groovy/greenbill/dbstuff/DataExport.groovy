@@ -15,7 +15,7 @@
  */
 package greenbill.dbstuff
 
-import org.codehaus.groovy.grails.commons.ApplicationHolder
+
 import org.dbunit.dataset.xml.*;
 import org.dbunit.dataset.excel.*;
 import org.dbunit.dataset.csv.*
@@ -25,9 +25,11 @@ import org.apache.ddlutils.model.Database
 
 public class DataExport {
 	def dataSource
+  def grailsApplication
+  def grailsApp
 
 	def exportDiff(inputPath,outputPath){
-		def appCtx = ApplicationHolder.application.parentContext
+		def appCtx = grailsApp.parentContext
         def platform = PlatformFactory.createNewPlatformInstance(dataSource)
         def model
         if(platform.name != "Oracle") {

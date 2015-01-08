@@ -15,13 +15,14 @@
  */
 package greenbill.dbstuff
 
-import org.codehaus.groovy.grails.commons.ApplicationHolder
+//import org.codehaus.groovy.grails.commons.ApplicationHolder
 import org.apache.ddlutils.PlatformFactory;
 
 public class CreateDb {
 
 	def dataSource
 	def platform
+	def grailsApplication
 	
 	def dropAndCreate(dbname,dsConfig) {
 		 platform = PlatformFactory.createNewPlatformInstance(dataSource)
@@ -99,7 +100,7 @@ public class CreateDb {
     }
 
 	def dropHsql(dbname) {
-		if(!ApplicationHolder.application.config.dataLoad.createUrl.contains("mem")){
+		if(!grailsApplication.config.dataLoad.createUrl.contains("mem")){
 			runSql("DROP SCHEMA PUBLIC CASCADE")
 		}
 	}

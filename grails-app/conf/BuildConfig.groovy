@@ -38,6 +38,7 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
+        compile 'commons-beanutils:commons-beanutils:1.8.3'
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
 
         // runtime 'mysql:mysql-connector-java:5.1.22'
@@ -45,10 +46,12 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        runtime ":hibernate:$grailsVersion"
-        build ":tomcat:$grailsVersion"
-        runtime ":database-migration:1.3.8"
-        build ':release:2.2.1', ':rest-client-builder:1.0.3', { export = false }
+        
+        build ':tomcat:7.0.52.1'
+        runtime ':hibernate4:4.3.5.2' // or ':hibernate:3.6.10.14'
+        runtime ':database-migration:1.4.0'
+        //runtime ':jquery:1.11.0.2'
+
     }
 
 
